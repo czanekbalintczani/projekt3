@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Győri Buszok Katalógusa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: none;
+            transition: background 0.3s;
+        }
+        .dark-mode .container {
+            background: #1e1e1e;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .dark-mode h1 {
+            color: #f5f5f5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+        .gallery-button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .gallery-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .dark-mode .gallery-popup {
+            background: #333;
+        }
+        .gallery-popup img {
+            width: 100px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gallery-popup img:hover {
+            opacity: 0.8;
+        }
+        .fullsize-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .fullsize-popup img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 5px;
+        }
+        .close-btn, .dark-mode-toggle {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+    <div class="container">
+        <h1>Győri Buszok Katalógusa</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Db.</th>
+                    <th>Típus</th>
+                    <th>Forgalmi rendszám</th>
+                    <th>Előző forgalmi rendszám/ok</th>
+                    <th>Évjárat</th>
+                    <th>Beszerzés</th>
+                    <th>Galéria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ide kerülnek a dinamikusan generált sorok -->
+            </tbody>
+        </table>
+    </div>
+    <div class="gallery-popup" id="galleryPopup">
+        <!-- Ide kerülnek a galéria képei -->
+    </div>
+    <div class="fullsize-popup" id="fullsizePopup" onclick="closeFullsize()">
+        <img id="fullsizeImage" src="" alt="Nagyított kép">
+    </div>
+
+    <script>
+        // Adatok JSON formátumban
+        const busData = [
+            { id: 1, type: "Irisbus Crossway", plate: "NKW-902", previousPlate: "Y 260 003", year: "2010", acquisition: "2016.02.10." },
+            { id: 2, type: "Irisbus Crossway", plate: "NKW-905", previousPlate: "Y 260 687", year: "2010", acquisition: "2016.02.10." },
+            { id: 3, type: "Irisbus Crossway", plate: "NKW-906", previousPlate: "Y 255 410", year: "2010", acquisition: "2016.02.10." },
+            { id: 4, type: "Irisbus Crossway", plate: "NKW-907", previousPlate: "Y 267 079", year: "2011", acquisition: "2016.02.10." },
+            { id: 5, type: "Irisbus Crossway", plate: "NKW-908", previousPlate: "Y 260 567", year: "2010", acquisition: "2016.02.10." },
+            { id: 6, type: "Volvo 8900 LE", plate: "SWR-556", previousPlate: "-", year: "2021", acquisition: "2021.11.22." },
+            { id: 7, type: "Volvo 8900 LE", plate: "SWR-557", previousPlate: "-", year: "2021", acquisition: "2021.11.23." },
+            { id: 8, type: "Volvo 8900 LE", plate: "SWR-558", previousPlate: "-", year: "2021", acquisition: "2021.11.23." },
+            { id: 9, type: "Volvo 8900 LE", plate: "SWR-559", previousPlate: "-", year: "2021", acquisition: "2021.11.23." },
+            { id: 10, type: "Volvo 8900 LE", plate: "SWR-560", previousPlate: "-", year: "2021", acquisition: "2021.11.23." },
+            // További adatok...
+        ];
+
+        // Táblázat feltöltése
+        function fillTable() {
+            const tableBody = document.querySelector("table tbody");
+            tableBody.innerHTML = ""; // Táblázat ürítése
+
+            busData.forEach(bus => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${bus.id}.</td>
+                    <td>${bus.type}</td>
+                    <td>${bus.plate}</td>
+                    <td>${bus.previousPlate}</td>
+                    <td>${bus.year}</td>
+                    <td>${bus.acquisition}</td>
+                    <td><button class="gallery-button" onclick="openGallery(${bus.id})">📷</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Galéria megnyitása
+        function openGallery(busId) {
+            const bus = busData.find(b => b.id === busId);
+            if (bus) {
+                const galleryPopup = document.getElementById("galleryPopup");
+                galleryPopup.innerHTML = `
+                    <button class="close-btn" onclick="closeGallery()">Bezárás</button>
+                    <div>
+                        <img src="bus${busId}_1.jpg" alt="${bus.type} ${bus.plate}" onclick="showFullsize(this.src)">
+                        <img src="bus${busId}_2.jpg" alt="${bus.type} ${bus.plate}" onclick="showFullsize(this.src)">
+                    </div>
+                `;
+                galleryPopup.style.display = "block";
+            }
+        }
+
+        // Galéria bezárása
+        function closeGallery() {
+          document.getElementById("galleryPopup").style.display = "none";
+      }
+
+      // Nagyított kép megjelenítése
+      function showFullsize(src) {
+          document.getElementById("fullsizeImage").src = src;
+          document.getElementById("fullsizePopup").style.display = "block";
+      }
+
+      // Nagyított kép bezárása
+      function closeFullsize() {
+          document.getElementById("fullsizePopup").style.display = "none";
+      }
+
+      // Sötét mód váltása
+      function toggleDarkMode() {
+          document.body.classList.toggle("dark-mode");
+      }
+
+      // Oldal betöltésekor feltöltjük a táblázatot
+      document.addEventListener("DOMContentLoaded", fillTable);
+  </script>
+</body>
+</html>
