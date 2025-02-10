@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Győri Buszok Katalógusa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/pictures/logo.ico" type="image/x-icon">
     <style>
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -113,12 +121,28 @@
             top: 10px;
             right: 10px;
         }
+        .sort-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
     </style>
+
 </head>
 <body>
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
     <div class="container">
         <h1>Győri Buszok Katalógusa</h1>
+        <input type="text" id="busSearch" placeholder="Keresés típus vagy rendszám szerint..." oninput="searchBus()">
+        
+        <button class="sort-button" onclick="sortBuses('type')">Rendezés típus szerint</button>
+        <button class="sort-button" onclick="sortBuses('plate')">Rendezés rendszám szerint</button>
+        <button class="sort-button" onclick="sortBuses('year')">Rendezés évjárat szerint</button>
+
         <table>
             <thead>
                 <tr>
@@ -128,21 +152,21 @@
                     <th>Galéria</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Ide kerülnek a dinamikusan generált sorok -->
+            <tbody id="busList">
+                <!-- Buszok itt fognak megjelenni -->
             </tbody>
         </table>
     </div>
-    <div class="gallery-popup" id="galleryPopup">
-        <!-- Ide kerülnek a galéria képei -->
-    </div>
+    <div class="gallery-popup" id="galleryPopup"></div>
     <div class="fullsize-popup" id="fullsizePopup" onclick="closeFullsize()">
         <img id="fullsizeImage" src="" alt="Nagyított kép">
     </div>
 
     <script>
-        // Adatok JSON formátumban
-        const busData = [
+
+
+
+const busData = [
             {id:1, type: "Irisbus Crossway", plate: "NKW-902", year: 2010, images: ["nkw902_1.jpg", "nkw902_2.jpg"] },
             {id:1, type: "Irisbus Crossway", plate: "NKW-905", year: 2010, images: ["nkw905_1.jpg", "nkw905_2.jpg"] },
             {id:1, type: "Irisbus Crossway", plate: "NKW-906", year: 2010, images: ["nkw906_1.jpg", "nkw906_2.jpg"] },
@@ -213,15 +237,12 @@
             {id:1, type: "Credo IC 12", plate: "MHK-086", year: 2012, images: ["mhk086_1.jpg", "mhk086_2.jpg"] },
             {id:1, type: "Credo IC 12", plate: "MHK-087", year: 2012, images: ["mhk087_1.jpg", "mhk087_2.jpg"] },
             {id:1, type: "Credo IC 12", plate: "MHK-089", year: 2012, images: ["mhk089_1.jpg", "mhk089_2.jpg"] },
-            // Credo LH 12 buses
             {id:1, type: "Credo LH 12", plate: "LHT-746", year: 2008, images: ["lht746_1.jpg", "lht746_2.jpg"] },
             {id:1, type: "Credo LH 12", plate: "LWM-503", year: 2011, images: ["lwm503_1.jpg", "lwm503_2.jpg"] },
             {id:1, type: "Credo LH 12", plate: "LWM-504", year: 2011, images: ["lwm504_1.jpg", "lwm504_2.jpg"] },
             {id:1, type: "Credo LH 12", plate: "MNY-664", year: 2012, images: ["mny664_1.jpg", "mny664_2.jpg"] },
-            // Credo EN 18 buses
             {id:1, type: "Credo EN 18", plate: "LKC-294", year: 2008, images: ["lkc294_1.jpg", "lkc294_2.jpg"] },
             {id:1, type: "Credo EN 18", plate: "LKC-295", year: 2008, images: ["lkc295_1.jpg", "lkc295_2.jpg"] },
-            // MAN Lion's City G buses
             {id:1, type: "MAN Lion's City G", plate: "SRD-274", year: 2021, images: ["srd274_1.jpg", "srd274_2.jpg"] },
             {id:1, type: "MAN Lion's City G", plate: "SRD-275", year: 2021, images: ["srd275_1.jpg", "srd275_2.jpg"] },
             {id:1, type: "MAN Lion's City G", plate: "SRD-276", year: 2021, images: ["srd276_1.jpg", "srd276_2.jpg"] },
@@ -241,7 +262,6 @@
             {id:1, type: "MAN Lion's City G", plate: "SRD-290", year: 2021, images: ["srd290_1.jpg", "srd290_2.jpg"] },
             {id:1, type: "MAN Lion's City G", plate: "SRD-291", year: 2021, images: ["srd291_1.jpg", "srd291_2.jpg"] },
             {id:1, type: "MAN Lion's City G", plate: "SRD-293", year: 2021, images: ["srd293_1.jpg", "srd293_2.jpg"] },
-            // Ikarus 260.20M buses
             {id:1, type: "Ikarus 260.20M", plate: "GNX-310", year: 1998, images: ["gnx310_1.jpg", "gnx310_2.jpg"] },
             {id:1, type: "Ikarus 260.20M", plate: "GNX-312", year: 1998, images: ["gnx312_1.jpg", "gnx312_2.jpg"] },
             {id:1, type: "Ikarus 260.20 M2", plate: "HSW-657", year: 2001, images: ["hsw657_1.jpg", "hsw657_2.jpg"] },
@@ -251,74 +271,55 @@
             {id:1, type: "Ikarus 260.20 M2", plate: "IAA-825", year: 2002, images: ["iaa825_1.jpg", "iaa825_2.jpg"] },
             {id:1, type: "Ikarus 260.20 M2", plate: "JXW-453", year: 2002, images: ["jxw453_1.jpg", "jxw453_2.jpg"] },
             {id:1, type: "Ikarus 260.20 M2", plate: "KCM-502", year: 2001, images: ["kcm502_1.jpg", "kcm502_2.jpg"] },
-            // Ikarus 263.10 buses
             {id:1, type: "Ikarus 263.10", plate: "GZF-212", year: 1998, images: ["gzf212_1.jpg", "gzf212_2.jpg"] },
-            // Other buses
             {id:1, type: "Ikarus 280.30M", plate: "HNF-498", year: 2000, images: ["hnf498_1.jpg", "hnf498_2.jpg"] },
             {id:1, type: "Ikarus C80.30A", plate: "KRR-180", year: 2000, images: ["krr180_1.jpg", "krr180_2.jpg"] },
             {id:1, type: "Ikarus EAG E94.16", plate: "KIC-698", year: 2006, images: ["kic698_1.jpg", "kic698_2.jpg"] },
             {id:1, type: "Ikarus EAG E94.16", plate: "KSM-091", year: 2006, images: ["ksm091_1.jpg", "ksm091_2.jpg"] },
             {id:1, type: "Ikarus EAG E94.17", plate: "KYV-344", year: 2004, images: ["kyv344_1.jpg", "kyv344_2.jpg"] },
-            {id:1, type: "MB O350 Tourismo", plate: "LZR-253", year: 2006, images: ["lzr253_1.jpg", "lzr253_2.jpg"] }
+            {id:1, type: "MB O350 Tourismo", plate: "LZR-253", year: 2006, images: ["lzr253_1.jpg", "lzr253_2.jpg"] },
+            // {id:1, type: "Cigány", plate: "CIG-4N1", year: 2006, images: ["lzr253_1.jpg", "lzr253_2.jpg"] }
         ];
 
-        // Táblázat feltöltése
-        function fillTable() {
-            const tableBody = document.querySelector("table tbody");
-            tableBody.innerHTML = ""; // Táblázat ürítése
 
-            busData.forEach(bus => {
-                const row = document.createElement("tr");
+        function renderBuses(data) {
+            const busList = document.getElementById('busList');
+            busList.innerHTML = '';
+            data.forEach(bus => {
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    
                     <td>${bus.type}</td>
                     <td>${bus.plate}</td>
                     <td>${bus.year}</td>
-                    <td><button class="gallery-button" onclick="openGallery(${bus.id})">📷</button></td>
+                    <td><button class="gallery-button" onclick="openGallery(${bus.id})">Galéria</button></td>
                 `;
-                tableBody.appendChild(row);
+                busList.appendChild(row);
             });
         }
 
-        // Galéria megnyitása
-        function openGallery(busId) {
-            const bus = busData.find(b => b.id === busId);
-            if (bus) {
-                const galleryPopup = document.getElementById("galleryPopup");
-                galleryPopup.innerHTML = `
-                    <button class="close-btn" onclick="closeGallery()">Bezárás</button>
-                    <div>
-                        <img src="bus${busId}_1.jpg" alt="${bus.type} ${bus.plate}" onclick="showFullsize(this.src)">
-                        <img src="bus${busId}_2.jpg" alt="${bus.type} ${bus.plate}" onclick="showFullsize(this.src)">
-                    </div>
-                `;
-                galleryPopup.style.display = "block";
+        function sortBuses(criteria) {
+            let sortedData;
+            if (criteria === 'type') {
+                sortedData = [...busData].sort((a, b) => a.type.localeCompare(b.type));
+            } else if (criteria === 'plate') {
+                sortedData = [...busData].sort((a, b) => a.plate.localeCompare(b.plate));
+            } else if (criteria === 'year') {
+                sortedData = [...busData].sort((a, b) => a.year - b.year);
             }
+            renderBuses(sortedData);
         }
 
-        // Galéria bezárása
-        function closeGallery() {
-          document.getElementById("galleryPopup").style.display = "none";
-      }
+        function searchBus() {
+            const searchQuery = document.getElementById('busSearch').value.toLowerCase();
+            const filteredBuses = busData.filter(bus => bus.type.toLowerCase().includes(searchQuery) || bus.plate.toLowerCase().includes(searchQuery));
+            renderBuses(filteredBuses);
+        }
 
-      // Nagyított kép megjelenítése
-      function showFullsize(src) {
-          document.getElementById("fullsizeImage").src = src;
-          document.getElementById("fullsizePopup").style.display = "block";
-      }
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
 
-      // Nagyított kép bezárása
-      function closeFullsize() {
-          document.getElementById("fullsizePopup").style.display = "none";
-      }
-
-      // Sötét mód váltása
-      function toggleDarkMode() {
-          document.body.classList.toggle("dark-mode");
-      }
-
-      // Oldal betöltésekor feltöltjük a táblázatot
-      document.addEventListener("DOMContentLoaded", fillTable);
-  </script>
+        renderBuses(busData);
+    </script>
 </body>
 </html>
