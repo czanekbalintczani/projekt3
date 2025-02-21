@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Győri Buszállomány</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <video autoplay loop muted class="header-video">
+            <source src="cz_anim.mp4" type="video/mp4">
+        </video>
+        <h1>Győri Buszállomány</h1>
+        <button id="toggle-darkmode">🌙</button>
+    </header>
+    
+    <div class="controls">
+        <input type="text" id="search" placeholder="Keresés...">
+        <select id="filter">
+            <option value="">Összes</option>
+            <option value="volvo">Volvo</option>
+            <option value="ikarus">Ikarus</option>
+        </select>
+        <button id="show-video">🎥 Animáció</button>
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Típus</th>
+                    <th>Rendszám</th>
+                    <th>Előző rendszám</th>
+                    <th>Évjárat</th>
+                    <th>Galéria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Adatok betöltése dinamikusan -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <video controls>
+                <source src="cz_animb2.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-gallery">&times;</span>
+            <h2>Busz Galéria</h2>
+            <div class="gallery-container">
+                <!-- Képek betöltése dinamikusan -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
