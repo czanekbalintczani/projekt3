@@ -65,3 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     });
 });
+// Sötét mód váltása
+function sotetModValtasa() {
+    document.body.classList.toggle("sotet-mod");
+}

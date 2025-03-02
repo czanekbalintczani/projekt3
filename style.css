@@ -70,9 +70,9 @@ th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
-.dark-mode .gallery-popup {
-  background: #333;
-}
+
+
+
 .gallery-popup img {
   width: 100px;
   margin: 5px;

@@ -13,17 +13,17 @@
             <source src="cz_anim.mp4" type="video/mp4">
         </video>
         <h1>Győri Buszállomány</h1>
-        <button id="toggle-darkmode">🌙</button>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
     </header>
     
     <div class="controls">
-        <input type="text" id="search" placeholder="Keresés...">
-        <select id="filter">
+        <input type="text" id="search" placeholder="Keresés..." onkeyup="searchTable()">
+        <select id="filter" onchange="filterTable()">
             <option value="">Összes</option>
             <option value="volvo">Volvo</option>
             <option value="ikarus">Ikarus</option>
         </select>
-        <button id="show-video">🎥 Animáció</button>
+        <button id="show-video" onclick="openVideoModal()">🎥 Animáció</button>
     </div>
     
     <div class="table-container">
@@ -45,21 +45,34 @@
 
     <div id="video-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeModal('video-modal')">&times;</span>
             <video controls>
-                <source src="cz_animb2.mp4" type="video/mp4">
+                <source src="/cz_animb2.mp4" type="/cz_animb2.mp4">
             </video>
         </div>
     </div>
 
     <div id="gallery-modal" class="modal">
         <div class="modal-content">
-            <span class="close-gallery">&times;</span>
+            <span class="close-gallery" onclick="closeModal('gallery-modal')">&times;</span>
             <h2>Busz Galéria</h2>
             <div class="gallery-container">
                 <!-- Képek betöltése dinamikusan -->
             </div>
         </div>
     </div>
+    
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
 </body>
 </html>
