@@ -7,13 +7,135 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="/pictures/logo.ico" type="image/x-icon">
     <style>
-        /* Your styles remain the same */
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: none;
+            transition: background 0.3s;
+        }
+        .dark-mode .container {
+            background: #1e1e1e;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .dark-mode h1 {
+            color: #f5f5f5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+        .gallery-button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .gallery-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .dark-mode .gallery-popup {
+            background: #333;
+        }
+        .gallery-popup img {
+            width: 100px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gallery-popup img:hover {
+            opacity: 0.8;
+        }
+        .fullsize-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .fullsize-popup img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 5px;
+        }
+        .close-btn, .dark-mode-toggle {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .sort-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
     <div class="container">
-        <h1>Győri Buszok Katalógusa</h1>
+        <h1>Győri Buszok Katalógusa (Helyközi)</h1>
         <input type="text" id="busSearch" placeholder="Keresés típus vagy rendszám szerint..." oninput="searchBus()">
         
         <button class="sort-button" onclick="sortBuses('type')">Rendezés típus szerint</button>
@@ -41,7 +163,10 @@
     </div>
 
     <script>
-        let busData = [];  // Declare busData globally to be used in multiple functions
+
+const busData = [
+            {id:1, type: "Irisbus Crossway", plate: "NKW-902", year: 2010, images: ["nkw902_1.jpg", "nkw902_2.jpg"] },
+        ]
 
         async function fetchBuses() {
             try {
@@ -118,6 +243,8 @@
             const fullsizePopup = document.getElementById('fullsizePopup');
             fullsizePopup.style.display = 'none';
         }
+
+        renderBuses(busData)
     </script>
 </body>
 </html>
