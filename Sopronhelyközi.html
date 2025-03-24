@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Győri Buszok Katalógusa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/pictures/logo.ico" type="image/x-icon">
+    <style>
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: none;
+            transition: background 0.3s;
+        }
+        .dark-mode .container {
+            background: #1e1e1e;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .dark-mode h1 {
+            color: #f5f5f5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+        .gallery-button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .gallery-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .dark-mode .gallery-popup {
+            background: #333;
+        }
+        .gallery-popup img {
+            width: 100px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gallery-popup img:hover {
+            opacity: 0.8;
+        }
+        .fullsize-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .fullsize-popup img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 5px;
+        }
+        .close-btn, .dark-mode-toggle {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .sort-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+    <div class="container">
+        <h1>Soproni Buszok Katalógusa (Helyközi)</h1>
+        <input type="text" id="busSearch" placeholder="Keresés típus vagy rendszám szerint..." oninput="searchBus()">
+        
+        <button class="sort-button" onclick="sortBuses('type')">Rendezés típus szerint</button>
+        <button class="sort-button" onclick="sortBuses('plate')">Rendezés rendszám szerint</button>
+        <button class="sort-button" onclick="sortBuses('year')">Rendezés évjárat szerint</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Típus</th>
+                    <th>Forgalmi rendszám</th>
+                    <th>Évjárat</th>
+                    <th>Galéria</th>
+                </tr>
+            </thead>
+            <tbody id="busList">
+                <!-- Buszok itt fognak megjelenni -->
+            </tbody>
+        </table>
+    </div>
+    <div class="gallery-popup" id="galleryPopup"></div>
+    <div class="fullsize-popup" id="fullsizePopup" onclick="closeFullsize()">
+        <img id="fullsizeImage" src="" alt="Nagyított kép">
+    </div>
+
+    <script>
+
+
+
+const busData = [
+            {id:1, type: "Mercedes-Benz Intouro M", plate: "AA IL-170", year: 2022, images: ["aail170_1.jpg", "aail170_2.jpg"] },
+            {id:1, type: "Mercedes-Benz Integro II", plate: "MZD-011", year: 2009, images: ["mzd011_1.jpg", "mzd011_2.jpg"] },
+            {id:1, type: "Mercedes-Benz Integro II", plate: "MZD-012", year: 2009, images: ["mzd012_1.jpg", "mzd012_2.jpg"] },
+            {id:1, type: "Mercedes-Benz Integro II", plate: "MZD-013", year: 2009, images: ["mzd013_1.jpg", "mzd013_2.jpg"] },
+            {id:1, type: "Mercedes-Benz Integro II", plate: "MZD-015", year: 2009, images: ["mzd015_1.jpg", "mzd015_2.jpg"] },
+            {id:1, type: "MB Citaro O 530 LE MÜ", plate: "NOS-033", year: 2008, images: ["nos033_1.jpg", "nos033_2.jpg"] },
+            {id:1, type: "MB Citaro O 530 LE MÜ", plate: "NOS-072", year: 2008, images: ["nos072_1.jpg", "nos072_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "MYR-717", year: 2014, images: ["myr717_1.jpg", "myr717_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "MYR-723", year: 2014, images: ["myr723_1.jpg", "myr723_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "MYR-752", year: 2014, images: ["myr752_1.jpg", "myr752_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "MYR-754", year: 2014, images: ["myr754_1.jpg", "myr754_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "NZM-360", year: 2016, images: ["nzm360_1.jpg", "nzm360_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "NZM-362", year: 2016, images: ["nzm362_1.jpg", "nzm362_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "NZM-363", year: 2016, images: ["nzm363_1.jpg", "nzm363_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "NZM-367", year: 2016, images: ["nzm367_1.jpg", "nzm367_2.jpg"] },
+            {id:1, type: "Credo Inovell IC 12", plate: "PPH-634", year: 2018, images: ["pph634_1.jpg", "pph634_2.jpg"] },
+            {id:1, type: "Credo Inovell EC 12", plate: "MYR-687", year: 2014, images: ["myr687_1.jpg", "myr687_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "PPH-627", year: 2018, images: ["pph627_1.jpg", "pph627_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-545", year: 2020, images: ["ssm545_1.jpg", "ssm545_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-546", year: 2020, images: ["ssm546_1.jpg", "ssm546_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-547", year: 2020, images: ["ssm547_1.jpg", "ssm547_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-548", year: 2020, images: ["ssm548_1.jpg", "ssm548_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-549", year: 2020, images: ["ssm549_1.jpg", "ssm549_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "SSM-550", year: 2020, images: ["ssm550_1.jpg", "ssm550_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "AA JC-105", year: 2021, images: ["aajc105_1.jpg", "aajc105_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "AA JC-106", year: 2021, images: ["aajc106_1.jpg", "aajc106_2.jpg"] },
+            {id:1, type: "Credo Econell 12", plate: "AA JC-107", year: 2021, images: ["aajc107_1.jpg", "aajc107_2.jpg"] },
+            {id:1, type: "Credo BN 12", plate: "LTL-922", year: 2010, images: ["ltl922_1.jpg", "ltl922_2.jpg"] },
+            {id:1, type: "Credo BN 12", plate: "LTL-923", year: 2010, images: ["ltl923_1.jpg", "ltl923_2.jpg"] },
+            {id:1, type: "Credo BN 18", plate: "KZX-522", year: 2007, images: ["kzx522_1.jpg", "kzx522_2.jpg"] },
+            {id:1, type: "Credo BN 18", plate: "KZX-524", year: 2007, images: ["kzx524_1.jpg", "kzx524_2.jpg"] },
+            {id:1, type: "Credo BN 18", plate: "KZX-525", year: 2007, images: ["kzx525_1.jpg", "kzx525_2.jpg"] },
+            {id:1, type: "Credo EC 11", plate: "JXW-458", year: 2004, images: ["jxw458_1.jpg", "jxw458_2.jpg"] },
+            {id:1, type: "Credo EC 11", plate: "KIT-122", year: 2004, images: ["kit122_1.jpg", "kit122_2.jpg"] },
+            {id:1, type: "Credo EC 11", plate: "KXY-487", year: 2004, images: ["kxy487_1.jpg", "kxy487_2.jpg"] },
+            {id:1, type: "Credo EC 11", plate: "LWE-218", year: 2004, images: ["lwe218_1.jpg", "lwe218_2.jpg"] },
+            {id:1, type: "Credo EC 12", plate: "FLJ-037", year: 2005, images: ["flj037_1.jpg", "flj037_2.jpg"] },
+            {id:1, type: "Credo EC 12", plate: "FLR-240", year: 2006, images: ["flr240_1.jpg", "flr240_2.jpg"] },
+            {id:1, type: "Credo EC 12", plate: "KCM-503", year: 2005, images: ["kcm503_1.jpg", "kcm503_2.jpg"] },
+            {id:1, type: "Credo EN 12", plate: "LHT-747", year: 2008, images: ["lht747_1.jpg", "lht747_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LHT-494", year: 2008, images: ["lht494_1.jpg", "lht494_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LHT-496", year: 2008, images: ["lht496_1.jpg", "lht496_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LWM-501", year: 2011, images: ["lwm501_1.jpg", "lwm501_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LYL-734", year: 2011, images: ["lyl734_1.jpg", "lyl734_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LYL-735", year: 2011, images: ["lyl735_1.jpg", "lyl735_2.jpg"] },
+            {id:1, type: "Credo IC 12", plate: "LYL-738", year: 2011, images: ["lyl738_1.jpg", "lyl738_2.jpg"] },
+            {id:1, type: "Ikarus 260.20 M2", plate: "HSW-655", year: 2001, images: ["hsw655_1.jpg", "hsw655_2.jpg"] },
+            {id:1, type: "Ikarus 260.20 M2", plate: "HSW-672", year: 2001, images: ["hsw672_1.jpg", "hsw672_2.jpg"] },
+            {id:1, type: "MAN Lion's City A21", plate: "MRZ-374", year: 2014, images: ["mrz374_1.jpg", "mrz374_2.jpg"] },
+            {id:1, type: "MAN Lion's City G", plate: "SRD-352", year: 2021, images: ["srw352_1.jpg", "srw352_2.jpg"] },
+            {id:1, type: "MAN Lion's City G", plate: "SRD-353", year: 2021, images: ["srw353_1.jpg", "srw353_2.jpg"] },
+            {id:1, type: "MB O350 Tourismo", plate: "IKU-197", year: 2002, images: ["iku197_1.jpg", "iku197_2.jpg"] },
+            {id:1, type: "Setra S416 GT-HD", plate: "LYM-227", year: 2007, images: ["lym227_1.jpg", "lym227_2.jpg"] },
+            // {id:1, type: "Cigány", plate: "CIG-4N1", year: 2006, images: ["lzr253_1.jpg", "lzr253_2.jpg"] }
+        ];
+
+
+        function renderBuses(data) {
+            const busList = document.getElementById('busList');
+            busList.innerHTML = '';
+            data.forEach(bus => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bus.type}</td>
+                    <td>${bus.plate}</td>
+                    <td>${bus.year}</td>
+                    <td><button class="gallery-button" onclick="openGallery(${bus.id})">Galéria</button></td>
+                `;
+                busList.appendChild(row);
+            });
+        }
+
+        function sortBuses(criteria) {
+            let sortedData;
+            if (criteria === 'type') {
+                sortedData = [...busData].sort((a, b) => a.type.localeCompare(b.type));
+            } else if (criteria === 'plate') {
+                sortedData = [...busData].sort((a, b) => a.plate.localeCompare(b.plate));
+            } else if (criteria === 'year') {
+                sortedData = [...busData].sort((a, b) => a.year - b.year);
+            }
+            renderBuses(sortedData);
+        }
+
+        function searchBus() {
+            const searchQuery = document.getElementById('busSearch').value.toLowerCase();
+            const filteredBuses = busData.filter(bus => bus.type.toLowerCase().includes(searchQuery) || bus.plate.toLowerCase().includes(searchQuery));
+            renderBuses(filteredBuses);
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        renderBuses(busData);
+    </script>
+</body>
+</html>

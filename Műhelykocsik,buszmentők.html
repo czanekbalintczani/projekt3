@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Győri Buszok Katalógusa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/pictures/logo.ico" type="image/x-icon">
+    <style>
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: none;
+            transition: background 0.3s;
+        }
+        .dark-mode .container {
+            background: #1e1e1e;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .dark-mode h1 {
+            color: #f5f5f5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+        .gallery-button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .gallery-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .dark-mode .gallery-popup {
+            background: #333;
+        }
+        .gallery-popup img {
+            width: 100px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gallery-popup img:hover {
+            opacity: 0.8;
+        }
+        .fullsize-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .fullsize-popup img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 5px;
+        }
+        .close-btn, .dark-mode-toggle {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .sort-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+    <div class="container">
+        <h1>Műhelykocsik, buszmentők</h1>
+        <input type="text" id="busSearch" placeholder="Keresés típus vagy rendszám szerint..." oninput="searchBus()">
+        
+        <button class="sort-button" onclick="sortBuses('type')">Rendezés típus szerint</button>
+        <button class="sort-button" onclick="sortBuses('plate')">Rendezés rendszám szerint</button>
+        <button class="sort-button" onclick="sortBuses('year')">Rendezés évjárat szerint</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Típus</th>
+                    <th>Forgalmi rendszám</th>
+                    <th>Évjárat</th>
+                    <th>Galéria</th>
+                </tr>
+            </thead>
+            <tbody id="busList">
+                <!-- Buszok itt fognak megjelenni -->
+            </tbody>
+        </table>
+    </div>
+    <div class="gallery-popup" id="galleryPopup"></div>
+    <div class="fullsize-popup" id="fullsizePopup" onclick="closeFullsize()">
+        <img id="fullsizeImage" src="" alt="Nagyított kép">
+    </div>
+
+    <script>
+
+
+
+const busData = [
+            {id:1, type: "Iveco MTGB3 MD30", plate: "NGZ-580", year:2018 , images: ["ngz580_1.jpg", "ngz580_2.jpg"] },
+            {id:1, type: "Rába FA 27.235", plate: "GNW-188", year:1999 , images: ["gnw188_1.jpg", "gnw188_2.jpg"] },
+            {id:1, type: "Rába U26.256 DFK-000", plate: "BAR-610", year:1986 , images: ["bar610_1.jpg", "bar610_2.jpg"] },
+            
+            // {id:1, type: "Cigány", plate: "CIG-4N1", year: 2006, images: ["lzr253_1.jpg", "lzr253_2.jpg"] }
+        ];
+
+
+        function renderBuses(data) {
+            const busList = document.getElementById('busList');
+            busList.innerHTML = '';
+            data.forEach(bus => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bus.type}</td>
+                    <td>${bus.plate}</td>
+                    <td>${bus.year}</td>
+                    <td><button class="gallery-button" onclick="openGallery(${bus.id})">Galéria</button></td>
+                `;
+                busList.appendChild(row);
+            });
+        }
+
+        function sortBuses(criteria) {
+            let sortedData;
+            if (criteria === 'type') {
+                sortedData = [...busData].sort((a, b) => a.type.localeCompare(b.type));
+            } else if (criteria === 'plate') {
+                sortedData = [...busData].sort((a, b) => a.plate.localeCompare(b.plate));
+            } else if (criteria === 'year') {
+                sortedData = [...busData].sort((a, b) => a.year - b.year);
+            }
+            renderBuses(sortedData);
+        }
+
+        function searchBus() {
+            const searchQuery = document.getElementById('busSearch').value.toLowerCase();
+            const filteredBuses = busData.filter(bus => bus.type.toLowerCase().includes(searchQuery) || bus.plate.toLowerCase().includes(searchQuery));
+            renderBuses(filteredBuses);
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        renderBuses(busData);
+    </script>
+</body>
+</html>
