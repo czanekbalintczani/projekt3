@@ -8,12 +8,15 @@
     <script defer src="script.js"></script>
 </head>
 <body>
+
     <header>
         <video autoplay loop muted class="header-video">
             <source src="cz_anim.mp4" type="video/mp4">
         </video>
         <h1>Győri Buszállomány</h1>
-        <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+            🌙
+        </button>
     </header>
     
     <div class="controls">
@@ -25,7 +28,10 @@
         </select>
         <button id="show-video" onclick="openVideoModal()">🎥 Animáció</button>
     </div>
-    
+    <a href="/helyi.html">Helyi</a>
+    <a href="/Sopronhelyi.html">SopronH</a>
+    <a href="/Sopronhelyközi.html">SopronHK</a>
+    <a href="/testhelyközi.html">GYHK</a>
     <div class="table-container">
         <table>
             <thead>
@@ -47,7 +53,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('video-modal')">&times;</span>
             <video controls>
-                <source src="/cz_animb2.mp4" type="/cz_animb2.mp4">
+                <source src="cz_animb2.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -66,13 +72,76 @@
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            updateDarkModeIcon();
+        }
+
+        function updateDarkModeIcon() {
+            const darkModeToggle = document.querySelector('.dark-mode-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '🌞';
+            } else {
+                darkModeToggle.textContent = '🌙';
+            }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             if (localStorage.getItem('darkMode') === 'true') {
                 document.body.classList.add('dark-mode');
             }
+            updateDarkModeIcon();
         });
+
+        function openVideoModal() {
+            document.getElementById('video-modal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        const galleryImages = [
+            'bus1.jpg', 'bus2.jpg', 'bus3.jpg',
+            'bus4.jpg', 'bus5.jpg'
+        ];
+
+        const galleryContainer = document.querySelector('.gallery-container');
+
+        galleryImages.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = `path/to/images/${image}`;
+            imgElement.alt = `Busz ${image}`;
+            imgElement.classList.add('gallery-image');
+            galleryContainer.appendChild(imgElement);
+        });
+
+        const tableData = [
+            { type: 'Volvo', regNumber: 'ABC123', prevReg: 'XYZ987', year: '2010', gallery: 'bus1.jpg' },
+            { type: 'Ikarus', regNumber: 'DEF456', prevReg: 'LMN321', year: '2005', gallery: 'bus2.jpg' },
+            { type: 'Volvo', regNumber: 'GHI789', prevReg: 'RST654', year: '2012', gallery: 'bus3.jpg' },
+        ];
+
+        const tableBody = document.querySelector('table tbody');
+        tableData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.type}</td>
+                <td>${row.regNumber}</td>
+                <td>${row.prevReg}</td>
+                <td>${row.year}</td>
+                <td><button onclick="openGalleryModal('${row.gallery}')">Galéria</button></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        function openGalleryModal(image) {
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryImg = document.createElement('img');
+            galleryImg.src = `path/to/images/${image}`;
+            galleryImg.alt = 'Busz Galéria';
+            galleryModal.querySelector('.gallery-container').innerHTML = '';
+            galleryModal.querySelector('.gallery-container').appendChild(galleryImg);
+            galleryModal.style.display = 'block';
+        }
     </script>
 </body>
 </html>

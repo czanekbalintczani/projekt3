@@ -9,7 +9,6 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Fejléc háttérvideó */
 header {
     position: relative;
     text-align: center;
@@ -45,6 +44,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: white;
+    transition: background-color 0.3s ease;
 }
 
 th, td {
@@ -58,56 +58,65 @@ th {
     color: white;
 }
 
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
+/* Beviteli mezők */
+input[type="text"], select {
+    padding: 10px;
+    font-size: 1em;
     border-radius: 10px;
-    max-width: 80%;
-}
-
-.close, .close-gallery {
-    float: right;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.gallery-container img {
-    width: 100px;
-    height: auto;
+    border: 1px solid #ccc;
+    width: 200px;
     margin: 10px;
+    transition: background 0.3s, color 0.3s;
 }
-.dark-mode .gallery-popup {
-    background: #333;
-  }
-  .close-btn, .dark-mode-toggle {
-    background: #d32f2f;
+
+input[type="text"]:focus, select:focus {
+    border-color: #ff9c00;
+    outline: none;
+}
+
+/* Gombok */
+button, .dark-mode-toggle, .gallery-btn {
+    background-color: rgb(255, 156, 0);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    font-size: 1em;
     cursor: pointer;
-    border-radius: 5px;
-  }
-  .dark-mode-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  .dark-mode {
+    border-radius: 15px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover, .dark-mode-toggle:hover, .gallery-btn:hover {
+    background-color: #d97700;
+    transform: scale(1.05);
+}
+
+/* Sötét mód */
+.dark-mode {
     background-color: #121212;
     color: #f5f5f5;
-  }
-  
+}
+
+.dark-mode table {
+    background-color: #333;
+}
+
+.dark-mode th, .dark-mode td {
+    color: #f5f5f5;
+}
+
+.dark-mode input[type="text"], .dark-mode select {
+    background-color: #333;
+    color: #f5f5f5;
+    border-color: #555;
+}
+
+.dark-mode .gallery-btn, .dark-mode .dark-mode-toggle, .dark-mode button {
+    background-color: rgb(255, 156, 0);
+    color: #f5f5f5;
+    border: 1px solid #555;
+}
+
+.dark-mode .gallery-btn:hover, .dark-mode .dark-mode-toggle:hover, .dark-mode button:hover {
+    background-color: #444;
+}

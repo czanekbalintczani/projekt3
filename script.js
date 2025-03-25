@@ -10,20 +10,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeGallery = document.querySelector(".close-gallery");
     const table = document.querySelector("table tbody");
 
-    // Sötét mód kapcsoló
     darkModeButton.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
+        localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
     });
 
-    // Minta adatok
+    if (localStorage.getItem('darkMode') === 'true') {
+        body.classList.add('dark-mode');
+    }
+
     const data = [
         { tipus: "Volvo", rendszam: "ABC-123", elozo_rendszam: "XYZ-789", evjarat: 2012 },
-        { tipus: "Ikarus", rendszam: "DEF-456", elozo_rendszam: "LMN-321", evjarat: 2008 }
+        { tipus: "Ikarus", rendszam: "DEF-456", elozo_rendszam: "LMN-321", evjarat: 2008 },
+        { tipus: "Volvo", rendszam: "GHI-789", elozo_rendszam: "ABC-123", evjarat: 2015 },
+        { tipus: "Ikarus", rendszam: "JKL-012", elozo_rendszam: "MNO-345", evjarat: 2000 },
+        // További adatok
     ];
 
-    function renderTable() {
+    function renderTable(filteredData) {
         table.innerHTML = "";
-        data.forEach((row, index) => {
+        filteredData.forEach((row, index) => {
             let tr = `<tr>
                 <td>${row.tipus}</td>
                 <td>${row.rendszam}</td>
@@ -34,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             table.innerHTML += tr;
         });
 
-        // Galéria gomb eseménykezelők
         document.querySelectorAll(".gallery-btn").forEach(button => {
             button.addEventListener("click", (e) => {
                 const index = e.target.dataset.index;
@@ -42,7 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
-    renderTable();
+
+    function searchTable() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredData = data.filter(row => 
+            row.tipus.toLowerCase().includes(searchTerm) ||
+            row.rendszam.toLowerCase().includes(searchTerm) ||
+            row.elozo_rendszam.toLowerCase().includes(searchTerm) ||
+            row.evjarat.toString().includes(searchTerm)
+        );
+        renderTable(filteredData);
+    }
+
+    function filterTable() {
+        const selectedFilter = filterSelect.value;
+        const filteredData = data.filter(row => 
+            selectedFilter === "" || row.tipus.toLowerCase() === selectedFilter.toLowerCase()
+        );
+        renderTable(filteredData);
+    }
+
+    searchInput.addEventListener("keyup", searchTable);
+    filterSelect.addEventListener("change", filterTable);
 
     function openGallery(index) {
         const galleryContainer = document.querySelector(".gallery-container");
@@ -64,8 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     closeModal.addEventListener("click", () => {
         modal.style.display = "none";
     });
+
+    renderTable(data); // Kezdeti renderelés
 });
-// Sötét mód váltása
-function sotetModValtasa() {
-    document.body.classList.toggle("sotet-mod");
-}
