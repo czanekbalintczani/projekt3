@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Főoldal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <div id="profile-menu">
+                <div id="profile-container">
+                    <span id="greeting">Üdvözlünk!</span>
+                    <button id="logout">Kijelentkezés</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Főoldal</h1>
+        <p id="welcome-message">Üdvözöljük az oldalon!</p>
+
+        <!-- Admin felület -->
+        <div id="admin-panel" style="display: none;">
+            <h2>Adminisztrátori Felület</h2>
+            <button onclick="editTable()">Táblázat Módosítása</button>
+            <!-- Egyéb admin funkciók ide -->
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>

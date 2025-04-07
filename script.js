@@ -20,17 +20,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const data = [
+<<<<<<< Updated upstream
         { tipus: "Volvo", rendszam: "ABC-123", elozo_rendszam: "XYZ-789", evjarat: 2012 },
         { tipus: "Ikarus", rendszam: "DEF-456", elozo_rendszam: "LMN-321", evjarat: 2008 },
         { tipus: "Volvo", rendszam: "GHI-789", elozo_rendszam: "ABC-123", evjarat: 2015 },
         { tipus: "Ikarus", rendszam: "JKL-012", elozo_rendszam: "MNO-345", evjarat: 2000 },
         // További adatok
+=======
+        { db:1, tipus: "Volvo", rendszam: "ABC-123", elozo_rendszam: "XYZ-789", evjarat: 2012 },
+        { db:1, tipus: "Ikarus", rendszam: "DEF-456", elozo_rendszam: "LMN-321", evjarat: 2008 }
+>>>>>>> Stashed changes
     ];
 
     function renderTable(filteredData) {
         table.innerHTML = "";
         filteredData.forEach((row, index) => {
             let tr = `<tr>
+                <td>${row.db}</td>
                 <td>${row.tipus}</td>
                 <td>${row.rendszam}</td>
                 <td>${row.elozo_rendszam}</td>

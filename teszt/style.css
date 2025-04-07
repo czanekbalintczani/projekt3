@@ -1,0 +1,151 @@
+/* Alap stílusok */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    height: 50px;
+}
+
+/* Főoldal */
+main {
+    padding: 30px 10%;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Bejelentkezési és Regisztrációs oldalak */
+.login-page, .register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #333, #FF9800);
+}
+
+.login-container, .register-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Gombok */
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #FF9800;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #FF8C00;
+}
+
+/* Admin Felület */
+#admin-panel {
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#admin-panel h2 {
+    margin-bottom: 15px;
+}
+
+#admin-panel button {
+    background-color: #2196F3;
+    color: white;
+}
+
+#admin-panel button:hover {
+    background-color: #0b7dda;
+}
+
+/* Profile menü */
+#profile-menu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#profile-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile-container span {
+    color: white;
+    font-weight: bold;
+}
+
+#profile-container button {
+    background-color: #FF9800;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: white;
+}
+
+/* Üdvözlő üzenet */
+#welcome-message {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .login-container, .register-container {
+        width: 80%;
+    }
+
+    main {
+        padding: 20px 5%;
+    }
+}

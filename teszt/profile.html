@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-text">
+                <h1>Győri Buszok Katalógusa</h1>
+                <p>gyoribuszok.hu</p>
+            </div>
+            <nav>
+                <button class="menu-toggle">☰</button>
+                <ul class="nav-links">
+                    <li>
+                        <button class="nav-button">
+                            <i class="fas fa-image"></i>
+                            <span>Galéria</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-button">
+                            <i class="fas fa-video"></i>
+                            <span>Videók</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-button">
+                            <i class="fas fa-bus"></i>
+                            <span>Állományok</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-button">
+                            <i class="fas fa-search"></i>
+                            <span>Keresés</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-button" id="theme-toggle">
+                            <i class="fas fa-sun"></i>
+                            <span>Téma váltás</span>
+                        </button>
+                    </li>
+                    <li class="profile-menu">
+                        <div class="profile-container" id="profile-trigger">
+                            <i class="fas fa-user" id="default-profile-icon"></i>
+                            <span class="profile-label" id="profile-status"></span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Profil</h2>
+        <div id="profile-details">
+            </div>
+    </main>
+
+    <script src="profile.js"></script>
+</body>
+</html>
