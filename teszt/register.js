@@ -1,20 +1,26 @@
-document.getElementById('register-form').addEventListener('submit', (event) => {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('register-form').addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const adminKey = document.getElementById('admin-key').value;
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const adminKeyInput = document.getElementById('admin-key');
 
-    const isAdmin = adminKey === 'admin123';
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const adminKey = adminKeyInput.value;
 
-    if (password === confirmPassword) {
-        localStorage.setItem(`user-${username}`, password);
-        localStorage.setItem(`user-${username}-role`, isAdmin ? 'admin' : 'user');
+        const isAdmin = adminKey === 'admin123';
 
-        alert('Regisztráció sikeres!');
-        window.location.href = 'login.html';
-    } else {
-        alert('A jelszavak nem egyeznek!');
-    }
+        if (password === confirmPassword) {
+            localStorage.setItem(`user-${username}`, password);
+            localStorage.setItem(`user-${username}-role`, isAdmin ? 'admin' : 'user');
+            alert('Regisztráció sikeres!');
+            window.location.href = 'login.html';
+        } else {
+            alert('A jelszavak nem egyeznek!');
+        }
+    });
 });

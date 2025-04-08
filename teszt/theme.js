@@ -1,27 +1,41 @@
-// Téma váltás kezelése
-const themeToggleButton = document.getElementById('theme-toggle');
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
 
-// Ellenőrizzük a tárolt témát
-function loadTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.body.classList.add(savedTheme);
-    } else {
-        // Ha nincs tárolt téma, alapértelmezett a világos téma
-        document.body.classList.add('light-theme');
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.classList.add(savedTheme);
+            updateThemeButton(savedTheme);
+        } else {
+            body.classList.add('light-theme');
+            updateThemeButton('light-theme');
+        }
     }
-}
 
-// Téma váltás
-themeToggleButton.addEventListener('click', () => {
-    if (document.body.classList.contains('light-theme')) {
-        document.body.classList.replace('light-theme', 'dark-theme');
-        localStorage.setItem('theme', 'dark-theme');
-    } else {
-        document.body.classList.replace('dark-theme', 'light-theme');
-        localStorage.setItem('theme', 'light-theme');
+    function updateThemeButton(currentTheme) {
+        if (themeToggleButton) {
+            if (currentTheme === 'light-theme') {
+                themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
     }
+
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', () => {
+            if (body.classList.contains('light-theme')) {
+                body.classList.replace('light-theme', 'dark-theme');
+                localStorage.setItem('theme', 'dark-theme');
+                updateThemeButton('dark-theme');
+            } else {
+                body.classList.replace('dark-theme', 'light-theme');
+                localStorage.setItem('theme', 'light-theme');
+                updateThemeButton('light-theme');
+            }
+        });
+    }
+
+    loadTheme();
 });
-
-// Betöltjük a témát, ha már be van állítva
-loadTheme();

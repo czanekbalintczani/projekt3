@@ -3,71 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
+    <title>Profil - GyoriBuszok.hu</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
-        <div class="header-content">
+        <div class="container">
             <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="Logo">
-                </a>
-            </div>
-            <div class="header-text">
-                <h1>Győri Buszok Katalógusa</h1>
-                <p>gyoribuszok.hu</p>
+                <img src="logo.png" alt="GyoriBuszok.hu Logo">
             </div>
             <nav>
-                <button class="menu-toggle">☰</button>
-                <ul class="nav-links">
-                    <li>
-                        <button class="nav-button">
-                            <i class="fas fa-image"></i>
-                            <span>Galéria</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="nav-button">
-                            <i class="fas fa-video"></i>
-                            <span>Videók</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="nav-button">
-                            <i class="fas fa-bus"></i>
-                            <span>Állományok</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="nav-button">
-                            <i class="fas fa-search"></i>
-                            <span>Keresés</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="nav-button" id="theme-toggle">
-                            <i class="fas fa-sun"></i>
-                            <span>Téma váltás</span>
-                        </button>
-                    </li>
-                    <li class="profile-menu">
-                        <div class="profile-container" id="profile-trigger">
-                            <i class="fas fa-user" id="default-profile-icon"></i>
-                            <span class="profile-label" id="profile-status"></span>
-                        </div>
-                    </li>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Főoldal</a></li>
+                    <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
                 </ul>
             </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button onclick="window.location.href='profile.html'" class="active"><i class="fas fa-user-circle"></i> Profil</button>
+                    <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main>
-        <h2>Profil</h2>
+    <main class="container">
+        <h1><i class="fas fa-user-edit"></i> Profilom</h1>
         <div id="profile-details">
             </div>
+        <h2><i class="fas fa-pen"></i> Adatok módosítása</h2>
+        <form id="profile-edit-form">
+            <div class="input-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <button type="submit"><i class="fas fa-save"></i> Mentés</button>
+        </form>
     </main>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
     <script src="profile.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

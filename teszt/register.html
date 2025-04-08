@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regisztráció</title>
+    <title>Regisztráció - GyoriBuszok.hu</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="register-page">
     <div class="register-container">
-        <h1>Regisztráció</h1>
+        <h1><i class="fas fa-user-plus"></i> Regisztráció</h1>
         <form id="register-form">
             <div class="input-group">
-                <label for="username">Felhasználónév:</label>
+                <label for="username"><i class="fas fa-user"></i> Felhasználónév:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">
-                <label for="password">Jelszó:</label>
+                <label for="password"><i class="fas fa-lock"></i> Jelszó:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="input-group">
-                <label for="confirm-password">Jelszó megerősítése:</label>
+                <label for="confirm-password"><i class="fas fa-lock"></i> Jelszó megerősítése:</label>
                 <input type="password" id="confirm-password" name="confirm-password" required>
             </div>
             <div class="input-group">
-                <label for="admin-key">Admin kulcs:</label>
+                <label for="admin-key"><i class="fas fa-key"></i> Admin kulcs:</label>
                 <input type="text" id="admin-key" name="admin-key" placeholder="Admin kulcs (opcionális)">
             </div>
-            <button type="submit">Regisztráció</button>
+            <button type="submit"><i class="fas fa-check"></i> Regisztráció</button>
         </form>
-        <p>Van már fiókod? <a href="login.html">Bejelentkezés</a></p>
+        <p>Van már fiókod? <a href="login.html"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</a></p>
+        <p><a href="index.html"><i class="fas fa-arrow-left"></i> Vissza a főoldalra</a></p>
     </div>
 
     <script src="register.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

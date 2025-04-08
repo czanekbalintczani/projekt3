@@ -1,70 +1,127 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin felület</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin felület - GyoriBuszok.hu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <main>
-    <h2>Adminisztrációs felület</h2>
-    <table id="data-table">
-      <thead>
-        <tr><th>Név</th><th>Művelet</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <form id="add-row-form">
-      <input type="text" id="new-name" placeholder="Új név">
-      <button type="submit">Hozzáadás</button>
-    </form>
-    <button id="logout-btn">Kijelentkezés</button>
-  </main>
-  <script>
-    if (localStorage.getItem('role') !== 'admin') {
-      alert('Nincs jogosultságod az oldal megtekintéséhez!');
-      window.location.href = 'index.html';
-    }
+  <header>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="GyoriBuszok.hu Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Főoldal</a></li>
+                <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
+                <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div id="profile-menu">
+                <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i> Profil</button>
+                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+            </div>
+        </div>
+    </div>
+</header>
 
-    const table = document.querySelector('#data-table tbody');
-    const form = document.getElementById('add-row-form');
-    const logout = document.getElementById('logout-btn');
+    <main class="container">
+        <h2><i class="fas fa-cog"></i> Adminisztrációs felület</h2>
+        <table id="data-table">
+            <thead>
+                <tr><th>Név</th><th>Művelet</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <form id="add-row-form">
+            <input type="text" id="new-name" placeholder="Új név">
+            <button type="submit"><i class="fas fa-plus"></i> Hozzáadás</button>
+        </form>
+        <div class="admin-actions">
+            <button id="save-data"><i class="fas fa-save"></i> Adatok mentése</button>
+            <button id="discard-data"><i class="fas fa-trash"></i> Adatok elvetése</button>
+        </div>
+    </main>
 
-    let data = JSON.parse(localStorage.getItem('tableData') || '[]');
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
+        </div>
+    </footer>
 
-    function renderTable() {
-      table.innerHTML = '';
-      data.forEach((item, index) => {
-        const row = `<tr><td>${item}</td><td><button onclick="remove(${index})">Törlés</button></td></tr>`;
-        table.innerHTML += row;
-      });
-    }
+    <script>
+        if (localStorage.getItem('role') !== 'admin') {
+            alert('Nincs jogosultságod az oldal megtekintéséhez!');
+            window.location.href = 'index.html';
+        }
 
-    function remove(index) {
-      data.splice(index, 1);
-      localStorage.setItem('tableData', JSON.stringify(data));
-      renderTable();
-    }
+        const table = document.querySelector('#data-table tbody');
+        const form = document.getElementById('add-row-form');
+        const logout = document.getElementById('logout-btn');
+        const saveDataButton = document.getElementById('save-data');
+        const discardDataButton = document.getElementById('discard-data');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('new-name').value;
-      if (name) {
-        data.push(name);
-        localStorage.setItem('tableData', JSON.stringify(data));
+        let data = JSON.parse(localStorage.getItem('tableData') || '[]');
+        let originalData = [...data]; // Az eredeti adatok tárolására
+
+        function renderTable() {
+            table.innerHTML = '';
+            data.forEach((item, index) => {
+                const row = `<tr><td>${item}</td><td><button onclick="edit(${index})"><i class="fas fa-edit"></i> Szerkesztés</button> <button onclick="remove(${index})"><i class="fas fa-trash-alt"></i> Törlés</button></td></tr>`;
+                table.innerHTML += row;
+            });
+        }
+
+        function remove(index) {
+            data.splice(index, 1);
+            renderTable();
+        }
+
+        function edit(index) {
+            const currentValue = data[index];
+            const newValue = prompt('Új érték:', currentValue);
+            if (newValue !== null) {
+                data[index] = newValue;
+                renderTable();
+            }
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('new-name').value;
+            if (name) {
+                data.push(name);
+                renderTable();
+                form.reset();
+            }
+        });
+
+        logout.addEventListener('click', () => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+            window.location.href = 'login.html';
+        });
+
+        saveDataButton.addEventListener('click', () => {
+            localStorage.setItem('tableData', JSON.stringify(data));
+            originalData = [...data]; // Frissítjük az eredeti adatokat
+            alert('Adatok mentve!');
+        });
+
+        discardDataButton.addEventListener('click', () => {
+            data = [...originalData]; // Visszaállítjuk az eredeti adatokat
+            renderTable();
+            alert('Változtatások elvetve!');
+        });
+
         renderTable();
-        form.reset();
-      }
-    });
-
-    logout.addEventListener('click', () => {
-      localStorage.removeItem('username');
-      localStorage.removeItem('role');
-      window.location.href = 'login.html';
-    });
-
-    renderTable();
-  </script>
+    </script>
+    <script src="theme.js"></script>
 </body>
 </html>

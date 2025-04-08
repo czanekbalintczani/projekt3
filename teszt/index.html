@@ -3,36 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Főoldal</title>
+    <title>Főoldal - GyoriBuszok.hu</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
-        <div class="header-content">
+        <div class="container">
             <div class="logo">
-                <img src="logo.png" alt="Logo">
+                <img src="logo.png" alt="GyoriBuszok.hu Logo">
             </div>
-            <div id="profile-menu">
-                <div id="profile-container">
-                    <span id="greeting">Üdvözlünk!</span>
-                    <button id="logout">Kijelentkezés</button>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i> Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main>
-        <h1>Főoldal</h1>
-        <p id="welcome-message">Üdvözöljük az oldalon!</p>
+    <main class="container">
+        <h1>Üdvözöljük a GyoriBuszok.hu-n!</h1>
+        <p id="welcome-message">Fedezze fel Győr és környékének buszközlekedését!</p>
 
-        <!-- Admin felület -->
         <div id="admin-panel" style="display: none;">
-            <h2>Adminisztrátori Felület</h2>
-            <button onclick="editTable()">Táblázat Módosítása</button>
-            <!-- Egyéb admin funkciók ide -->
-        </div>
+            <h2><i class="fas fa-cog"></i> Adminisztrációs Felület</h2>
+            <button onclick="window.location.href='admin.html'"><i class="fas fa-table"></i> Táblázat Módosítása</button>
+            </div>
     </main>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
     <script src="index.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

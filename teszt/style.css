@@ -1,38 +1,161 @@
 /* Alap stílusok */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
     color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-theme {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+.dark-theme a {
+    color: #adb5bd;
+}
+
+.dark-theme a:hover {
+    color: #fff;
+}
+
+.dark-theme header {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.dark-theme nav ul li a {
+    color: #fff;
+}
+
+.dark-theme .login-container, .dark-theme .register-container {
+    background-color: rgba(52, 58, 64, 0.95);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.dark-theme .input-group label {
+    color: #fff;
+}
+
+.dark-theme #admin-panel {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.dark-theme table {
+    color: #fff;
+}
+
+.dark-theme table thead th {
+    border-bottom: 1px solid #495057;
+}
+
+.dark-theme table tbody tr {
+    border-bottom: 1px solid #495057;
+}
+
+/* Konténer a tartalom központosításához */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* Header */
 header {
-    background-color: #333;
+    background-color: #ff9b00;
     color: white;
-    padding: 20px;
-    text-align: center;
+    padding: 20px 0;
 }
 
-header .header-content {
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 header .logo img {
-    height: 50px;
+    height: 60px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #e9ecef;
+}
+
+.user-actions button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: 1px solid black;
+    background-color: #ff9b00;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.user-actions button:hover {
+    background-color: #ff9b00;
+}
+
+.user-actions #theme-toggle {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.user-actions #theme-toggle:hover {
+    opacity: 0.8;
+}
+
+#greeting {
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
 }
 
 /* Főoldal */
-main {
-    padding: 30px 10%;
+main.container {
+    padding: 30px;
     text-align: center;
 }
 
 h1 {
-    color: #333;
+    color: #ff9b00;
+    margin-bottom: 20px;
+}
+
+#welcome-message {
+    font-size: 1.2rem;
+    color: #6c757d;
 }
 
 /* Bejelentkezési és Regisztrációs oldalak */
@@ -41,7 +164,7 @@ h1 {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #333, #FF9800);
+    background: linear-gradient(135deg, #333, #ff9b00);
 }
 
 .login-container, .register-container {
@@ -49,9 +172,14 @@ h1 {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    width: 400px;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
+}
+
+.login-container h1, .register-container h1 {
+    color: #ff9b00;
+    margin-bottom: 20px;
 }
 
 .input-group {
@@ -62,90 +190,233 @@ h1 {
 .input-group label {
     display: block;
     margin-bottom: 5px;
+    color: #495057;
+    font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ced4da;
     border-radius: 5px;
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
-/* Gombok */
-button {
-    padding: 10px 20px;
+.login-container button, .register-container button {
+    padding: 12px 20px;
     border: none;
-    background-color: #FF9800;
+    background-color: #ff9b00;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #FF8C00;
+.login-container button:hover, .register-container button:hover {
+    background-color: #ff9b00;
+}
+
+.login-container p, .register-container p {
+    margin-top: 15px;
+    color: #6c757d;
+}
+
+.login-container a, .register-container a {
+    color: #ff9b00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container a:hover, .register-container a:hover {
+    text-decoration: underline;
 }
 
 /* Admin Felület */
 #admin-panel {
-    background-color: #444;
-    color: white;
+    background-color: #f8f9fa;
+    color: #333;
     padding: 20px;
     border-radius: 5px;
     margin-top: 20px;
+    text-align: left;
+    border: 1px solid #ced4da;
 }
 
 #admin-panel h2 {
+    color: #007bff;
     margin-bottom: 15px;
 }
 
 #admin-panel button {
-    background-color: #2196F3;
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
     color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin-right: 10px;
 }
 
 #admin-panel button:hover {
-    background-color: #0b7dda;
+    background-color: #1e7e34;
 }
 
-/* Profile menü */
-#profile-menu {
-    display: flex;
-    justify-content: flex-end;
+#admin-panel button[onclick*="window.location"] {
+    background-color: #007bff;
 }
 
-#profile-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+#admin-panel button[onclick*="window.location"]:hover {
+    background-color: #0056b3;
 }
 
-#profile-container span {
-    color: white;
-    font-weight: bold;
-}
-
-#profile-container button {
-    background-color: #FF9800;
+#admin-panel input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ced4da;
     border-radius: 5px;
-    padding: 5px 15px;
-    color: white;
+    margin-right: 10px;
+    font-size: 1rem;
 }
 
-/* Üdvözlő üzenet */
-#welcome-message {
-    font-size: 18px;
+#data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#data-table th, #data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: left;
+}
+
+#data-table th {
+    background-color: #f2f2f2;
     font-weight: bold;
 }
 
-/* Media Queries */
+#data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#data-table tbody button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    margin-right: 5px;
+}
+
+#data-table tbody button[onclick*="remove"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+#data-table tbody button[onclick*="remove"]:hover {
+    background-color: #c82333;
+}
+
+#data-table tbody button[onclick*="edit"] {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+#data-table tbody button[onclick*="edit"]:hover {
+    background-color: #e0a800;
+}
+
+.admin-actions {
+    margin-top: 20px;
+}
+
+.admin-actions button {
+    margin-right: 10px;
+}
+
+/* Lábléc */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+footer .container p {
+    margin: 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Ikonok */
+.fa-home, .fa-info-circle, .fa-bus, .fa-envelope, .fa-sign-in-alt, .fa-sign-out-alt, .fa-sun, .fa-moon, .fa-user, .fa-lock, .fa-user-plus, .fa-key, .fa-check, .fa-arrow-left, .fa-cog, .fa-table, .fa-plus, .fa-save, .fa-trash, .fa-edit, .fa-trash-alt {
+    margin-right: 5px;
+}
+
+/* Reszponzív design */
 @media (max-width: 768px) {
-    .login-container, .register-container {
-        width: 80%;
+    header .container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    main {
-        padding: 20px 5%;
+    header .logo {
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .user-actions {
+        margin-top: 10px;
+    }
+
+    .login-container, .register-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    main.container {
+        padding: 20px;
+    }
+
+    #admin-panel input[type="text"] {
+        width: calc(100% - 120px);
+        margin-bottom: 10px;
+    }
+
+    #admin-panel button {
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .admin-actions button {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
     }
 }
