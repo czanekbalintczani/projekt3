@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Képgaléria</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="GyoriBuszok.hu Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i> Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="image-gallery">
+
+        <a href="/gyor_helyi.html" class="image-card">
+            <img src="/pic/allomany_eloszt/gyor_helyi.jfif" alt="Győr Helyi">
+            <span>Győr Helyi</span>
+        </a>
+        <a href="link2.html" class="image-card">
+            <img src="/pic/allomany_eloszt/gyor_helykozi.jpg" alt="Győr Helyközi">
+            <span>Győr Helyközi</span>
+        </a>
+        <a href="link3.html" class="image-card">
+            <img src="/pic/allomany_eloszt/sopron_helyi.jfif" alt="Sopron Helyi">
+            <span>Sopron Helyi</span>
+        </a>
+        <a href="link4.html" class="image-card">
+            <img src="/pic/allomany_eloszt/sopron_helykozi.jfif" alt="Sopron Helyközi">
+            <span>Sopron Helyközi</span>
+        </a>
+        <a href="link5.html" class="image-card">
+            <img src="/pic/allomany_eloszt/movar_helykozi.jpg" alt="Mosonmagyaróvár Helyközi">
+            <span>Mosonmagyaróvár Helyközi</span>
+        </a>
+        <a href="link6.html" class="image-card">
+            <img src="/pic/allomany_eloszt/kapuvar_helykozi.jfif" alt="Kapuvár Helyközi">
+            <span>Kapuvár Helyközi</span>
+        </a>
+        <a href="link7.html" class="image-card">
+            <img src="/pic/allomany_eloszt/csorna_helykozi.jpg" alt="Csorna Helyközi">
+            <span>Csorna Helyközi</span>
+        </a>
+        <a href="link8.html" class="image-card">
+            <img src="/pic/allomany_eloszt/buszmento.jfif" alt="Buszmentő">
+            <span>Buszmentő</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GyoriBuszok.hu - Minden jog fenntartva</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const icon = document.body.classList.contains('dark-theme') ? 'fa-moon' : 'fa-sun';
+            themeToggle.querySelector('i').className = `fas ${icon}`;
+        });
+    </script>
+</body>
+</html>
