@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +13,14 @@
             background-color: #f5f5f5;
             font-family: Arial, sans-serif;
         }
+
         header {
             background-color: #ff9b00;
             color: white;
             padding: 15px 20px;
             text-align: center;
         }
+
         .container {
             display: flex;
             justify-content: space-between;
@@ -25,19 +28,24 @@
             max-width: 80%;
             margin: 0 auto;
         }
+
         .logo img {
             height: 50px;
         }
+
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: flex;
         }
+
         nav ul li {
             margin-left: 20px;
         }
-        nav ul li a, nav ul li button {
+
+        nav ul li a,
+        nav ul li button {
             text-decoration: none;
             color: white;
             font-size: 1rem;
@@ -45,6 +53,7 @@
             background: none;
             cursor: pointer;
         }
+
         #busSearch {
             width: 100%;
             max-width: 400px;
@@ -53,6 +62,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
         .sort-button {
             background-color: #ff9b00;
             color: white;
@@ -64,22 +74,29 @@
             margin: 10px 5px;
             text-align: center;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            border-radius: 0.5em; /* Kicsit kisebb lekerekítés */
-            overflow: hidden; /* Hogy a border-radius működjön a belső elemeken is */
+            border-radius: 0.5em;
+            /* Kicsit kisebb lekerekítés */
+            overflow: hidden;
+            /* Hogy a border-radius működjön a belső elemeken is */
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
+
         th {
             background-color: #ff9b00;
             color: white;
         }
+
         .gallery-button {
             background-color: #ff9b00;
             color: white;
@@ -89,6 +106,7 @@
             cursor: pointer;
             font-size: 14px;
         }
+
         footer {
             background-color: #333;
             color: white;
@@ -101,25 +119,31 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="logo.png" alt="GyoriBuszok.hu Logo">
+                <img src="logo.jpg" alt="GyoriBuszok.hu Logo">
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Főoldal</a></li>
-                    <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
-                    <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
-                    <li><a href="#"><i class="fas fa-file-alt"></i> Állományok</a></li>
-                    <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Főoldal</a></li>
+                    <li><a href="/gallery.html"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="/videos.html"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
+                    <li><button id="theme-toggle"> <i class="fas fa-sun"></i></button></li>
                 </ul>
             </nav>
             <div class="user-actions">
                 <div id="profile-menu">
-                    <button onclick="window.location.href='profile.html'" class="active"><i class="fas fa-user-circle"></i> Profil</button>
-                    <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i
+                            class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i>
+                            Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,41 +167,41 @@
                         </tr>
                     </thead>
                     <tbody id="busList">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
         <script>
-            // A busData most nem itt van, hanem a gyhall.js-ben
+
         </script>
         <script src="/keres.js"></script>
         <script src="/cshkall.js"></script>
         <script>
-            // Ez a script fogja a táblázatot feltölteni az adatokkal
-            document.addEventListener('DOMContentLoaded', function() {
+
+            document.addEventListener('DOMContentLoaded', function () {
                 const busListBody = document.getElementById('busList');
-    
+
                 busData.forEach(bus => {
                     const row = busListBody.insertRow();
-    
+
                     const typeCell = row.insertCell();
                     typeCell.textContent = bus.type;
-    
+
                     const plateCell = row.insertCell();
                     plateCell.textContent = bus.plate;
-    
+
                     const yearCell = row.insertCell();
                     yearCell.textContent = bus.year;
-    
+
                     const galleryCell = row.insertCell();
                     const galleryButton = document.createElement('button');
                     galleryButton.className = 'gallery-button';
                     galleryButton.textContent = 'Megtekintés';
-                    galleryButton.addEventListener('click', function() {
-                        // Itt majd megnyithatod a galériát, pl. egy új oldalon vagy egy felugró ablakban
+                    galleryButton.addEventListener('click', function () {
+
                         alert('Galéria megnyitva a(z) ' + bus.plate + ' rendszámú buszhoz!');
                         console.log('Galéria képei:', bus.images);
-                        // A tényleges galéria funkció megvalósítása egy külön feladat
+
                     });
                     galleryCell.appendChild(galleryButton);
                 });
@@ -189,4 +213,5 @@
         &copy; GyoriBuszok.hu 2025
     </footer>
 </body>
+
 </html>

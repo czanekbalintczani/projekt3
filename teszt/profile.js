@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><i class="fas fa-envelope"></i> Email: <span id="current-email">${storedEmail || 'Nincs megadva'}</span></p>
             `;
 
-        // Az űrlap előzetes feltöltése
+
         if (storedEmail) {
             document.getElementById('email').value = storedEmail;
         }

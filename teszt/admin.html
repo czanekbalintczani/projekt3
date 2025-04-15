@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin felület - GyoriBuszok.hu</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
-  <header>
-    <div class="container">
-        <div class="logo">
-            <img src="logo.png" alt="GyoriBuszok.hu Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Főoldal</a></li>
-                <li><a href="#"><i class="fas fa-images"></i> Galéria</a></li>
-                <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
-                <li><a href="#"><i class="fas fa-file-alt"></i> Állományok</a></li>
-                <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
-            </ul>
-        </nav>
-        <div class="user-actions">
-            <div id="profile-menu">
-                <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i> Profil</button>
-                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.jpg" alt="GyoriBuszok.hu Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/gallery.html"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="/videos.html"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Főoldal</a></li>
+                    <li><button id="theme-toggle"> <i class="fas fa-sun"></i></button></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i
+                            class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i>
+                            Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <main class="container">
         <h2><i class="fas fa-cog"></i> Adminisztrációs felület</h2>
         <table id="data-table">
             <thead>
-                <tr><th>Név</th><th>Művelet</th></tr>
+                <tr>
+                    <th>Név</th>
+                    <th>Művelet</th>
+                </tr>
             </thead>
             <tbody></tbody>
         </table>
@@ -68,7 +81,7 @@
         const discardDataButton = document.getElementById('discard-data');
 
         let data = JSON.parse(localStorage.getItem('tableData') || '[]');
-        let originalData = [...data]; // Az eredeti adatok tárolására
+        let originalData = [...data]; 
 
         function renderTable() {
             table.innerHTML = '';
@@ -110,12 +123,12 @@
 
         saveDataButton.addEventListener('click', () => {
             localStorage.setItem('tableData', JSON.stringify(data));
-            originalData = [...data]; // Frissítjük az eredeti adatokat
+            originalData = [...data]; 
             alert('Adatok mentve!');
         });
 
         discardDataButton.addEventListener('click', () => {
-            data = [...originalData]; // Visszaállítjuk az eredeti adatokat
+            data = [...originalData]; 
             renderTable();
             alert('Változtatások elvetve!');
         });
@@ -124,4 +137,5 @@
     </script>
     <script src="theme.js"></script>
 </body>
+
 </html>
