@@ -478,3 +478,30 @@ footer a:hover {
 .image-card:hover img {
     filter: none;
 }
+
+.update{
+    padding-left: 30px;
+}
+
+.kozdat{
+    color: #ff9b00;
+}
+
+.tovgombd{
+    text-align: right;
+    margin-top: 0.5em;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5em;
+}
+
+.image-card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+
+.image-card span {
+    background-color: #ff9b00;
+    color: white;
+    font-size: 1.1rem;
+}

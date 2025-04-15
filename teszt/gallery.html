@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Főoldal - GyoriBuszok.hu</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galéria – Buszok</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="gallery.js"></script>
+    <script defer src="theme.js"></script>
+    <script src="https://kit.fontawesome.com/a2d04a37ff.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <header>
@@ -15,7 +19,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/gallery.html"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Főoldal</a></li>
                     <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
                     <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
                     <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
@@ -35,47 +39,31 @@
     </header>
 
     <main class="container">
-        <h1>Üdvözöljük a GyoriBuszok.hu-n!</h1>
-        <p id="welcome-message">Fedezze fel Győr és környékének buszközlekedését!</p>
-        
-        <section id="updates">
-            <h1 style="text-align: center;">Utolsó frissítések</h1>
-    
-            <div class="update" data-id="1">
-                <h3 class="kozdat">2025. április 4.</h3>
-                <p>► Több új olvasói fotóval frissült a <strong>Ti küldtétek</strong> rovat.</p>
-                <div class="tovgomd"><button class="tovgomb" onclick="showArticle(1)">Tovább olvasom</button></div>
+        <h1>Busz Galéria</h1>
+        <div class="image-gallery">
+            <div class="image-card">
+                <img src="https://via.placeholder.com/600x400?text=Busz+1" alt="Busz 1">
+                <span>Ikarus 260</span>
             </div>
-    
-            <div class="update" data-id="2">
-                <h3 class="kozdat">2025. március 25.</h3>
-                <p>► Év eleji állományváltozások Győr-Moson-Sopron megyében.</p>
-                <div class="tovgomd"><button class="tovgomb" onclick="showArticle(2)">Tovább olvasom</button></div>
+            <div class="image-card">
+                <img src="https://via.placeholder.com/600x400?text=Busz+2" alt="Busz 2">
+                <span>Mercedes Citaro</span>
             </div>
-            <div id="admin-panel" style="display: none;">
-                <h2><i class="fas fa-cog"></i> Adminisztrációs Felület</h2>
-                <button onclick="window.location.href='admin.html'"><i class="fas fa-table"></i> Táblázat Módosítása</button>
+            <div class="image-card">
+                <img src="https://via.placeholder.com/600x400?text=Busz+3" alt="Busz 3">
+                <span>Volvo 7700A</span>
             </div>
-        </main>
-        <section id="article-details" style="display: none;">
-            <div class="container">
-                <button onclick="goBack()" class="vissza-btn">← Vissza</button>
-                <div id="article-content"></div>
+            <div class="image-card">
+                <img src="https://via.placeholder.com/600x400?text=Busz+4" alt="Busz 4">
+                <span>MAN Lions City</span>
             </div>
-
-
-    </section>
-
-    </section>
+        </div>
+    </main>
 
     <footer>
         <div class="container">
             <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
         </div>
     </footer>
-
-    <script src="index.js"></script>
-    <script src="theme.js"></script>
-    <script src="cikk.js"></script>
 </body>
 </html>
