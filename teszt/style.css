@@ -460,6 +460,26 @@ footer a:hover {
     border-radius: 8px 8px 0 0;
 }
 
+.image-card2 {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.image-card2 img {
+    width: 100%;
+    height: 80%;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+    border-radius: 8px 8px 0 0;
+}
+
 .image-card span {
     display: block;
     padding: 5px 0;
@@ -467,6 +487,16 @@ footer a:hover {
     font-weight: bold;
     color: #333;
     background-color: #f9f9f9;
+    height: 30%;
+    box-sizing: border-box;
+}
+.image-card2 span {
+    display: block;
+    padding: 5px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9b00;
     height: 30%;
     box-sizing: border-box;
 }

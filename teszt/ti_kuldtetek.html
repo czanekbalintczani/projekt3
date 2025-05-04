@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Főoldal - GyoriBuszok.hu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.jpg" alt="GyoriBuszok.hu Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/gallery.html"><i class="fas fa-images"></i> Galéria</a></li>
+                    <li><a href="/videos.html"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
+                    <li><button id="theme-toggle"> <i class="fas fa-sun"></i></button></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i
+                            class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i>
+                            Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    Lorem ipsum
+</body>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+    <script src="theme.js"></script>
+    <script src="cikk.js"></script>
+</body>
+
+</html>
