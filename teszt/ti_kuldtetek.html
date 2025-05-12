@@ -2,219 +2,173 @@
 <html lang="hu">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galéria</title>
-  <link rel="stylesheet" href="/style.css" />
-  <script defer src="theme.js"></script>
-  <script src="https://kit.fontawesome.com/a2d04a37ff.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .gallery-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 2rem;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galéria</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="gallery.js"></script>
+    <script defer src="theme.js"></script>
+    <script src="https://kit.fontawesome.com/a2d04a37ff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            gap: 1.5rem;
+            padding: 2rem;
+            flex-wrap: nowrap;
+        }
 
-    .submitted-image-card {
-      width: 90%;
-      max-width: 800px;
-      text-align: center;
-      background-color: var(--card-bg, #333);
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
-      transition: all 0.3s ease;
-    }
+        .gallery-card {
+            width: 40%;
+            max-width: 600px;
+            min-width: 300px;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-shrink: 0;
+        }
 
-    .submitted-image-card img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
+        .gallery-card.inactive {
+            filter: grayscale(100%) brightness(80%);
+            transform: scale(0.9);
+        }
 
-    .submitted-image-info {
-      text-align: left;
-      font-size: 0.95rem;
-    }
+        .gallery-card.active {
+            filter: none;
+            transform: scale(1);
+        }
 
-    .pagination {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1.5rem;
-      padding: 0 2rem;
-    }
+        .gallery-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
 
-    .pagination button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background-color: #333;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
 
-    .pagination button:disabled {
-      background-color: #999;
-      cursor: not-allowed;
-    }
+        .card-details {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
 
-    .reaction-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1.5rem;
-      font-size: 2rem;
-    }
+        .nav-buttons {
+            text-align: center;
+            margin: 2rem 0;
+        }
 
-    .reaction-buttons button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+        .nav-buttons button {
+            margin: 0.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: var(--button-bg);
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-    .reaction-buttons button:hover {
-      transform: scale(1.3);
-    }
+        .nav-buttons button:hover {
+            background-color: var(--accent);
+        }
 
-    .reaction-buttons .dislike {
-      color: red;
-    }
+        .shake {
+            animation: shake 0.4s;
+        }
 
-    .reaction-buttons .superlike {
-      color: dodgerblue;
-    }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
 
-    .reaction-buttons .like {
-      color: green;
-    }
-  </style>
+        .notification {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            opacity: 0;
+            animation: fadeInOut 3s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; top: 0; }
+            10% { opacity: 1; top: 1rem; }
+            90% { opacity: 1; top: 1rem; }
+            100% { opacity: 0; top: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .gallery-card {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <div class="logo">
-        <img src="logo.jpg" alt="GyoriBuszok.hu Logo">
-      </div>
-      <nav>
-        <ul>
-          <li><a href="/index.html"><i class="fas fa-home"></i> Főoldal</a></li>
-          <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
-          <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
-          <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
-          <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
-        </ul>
-      </nav>
-      <div class="user-actions">
-        <div id="profile-menu">
-          <button id="login-btn" onclick="window.location.href='login.html'"><i
-              class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
-          <div id="logged-in-menu" style="display: none;">
-            <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i>
-              Profil</button>
-            <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
-          </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.jpg" alt="GyoriBuszok.hu Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Főoldal</a></li>
+                    <li><a href="#"><i class="fas fa-film"></i> Videók</a></li>
+                    <li><a href="/allomany_eloszto.html"><i class="fas fa-file-alt"></i> Állományok</a></li>
+                    <li><a href="/ti_kuldtetek.html"><i class="fas fa-envelope-open-text"></i> Ti küldtétek</a></li>
+                    <li><button id="theme-toggle"><i class="fas fa-sun"></i></button></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="profile-menu">
+                    <button id="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
+                    <div id="logged-in-menu" style="display: none;">
+                        <button onclick="window.location.href='profile.html'"><i class="fas fa-user-circle"></i> Profil</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
-    <h1>Ti küldtétek – Beküldött képek</h1>
-    <div class="gallery-wrapper" id="gallery-container"></div>
-
-    <div class="reaction-buttons">
-      <button class="dislike"><i class="fas fa-times"></i></button>
-      <button class="superlike"><i class="fas fa-star"></i></button>
-      <button class="like"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="pagination">
-      <button id="prev-btn">Előző</button>
-      <span id="page-info"></span>
-      <button id="next-btn">Következő</button>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
-    </div>
-  </footer>
-
-  <script>
-    const galleryItems = [
-      {
-        title: "Busz a vasútállomáson",
-        src: "/pic/vid/hcc475.jpg",
-        sender: "Kiss László",
-        date: "2025-05-10",
-        description: "Egy átlagos hétköznap reggel."
-      },
-      {
-        title: "Ikarus a belvárosban",
-        src: "/pic/vid/hcc475.jpg",
-        sender: "Nagy Anna",
-        date: "2025-05-11",
-        description: "Régi, de megbízható."
-      },
-      {
-        title: "Esti járat indulása",
-        src: "/pic/vid/hcc475.jpg",
-        sender: "Tóth Gergely",
-        date: "2025-05-11",
-        description: "Az esti csúcsforgalomban készült fotó."
-      }
-    ];
-
-    let currentIndex = 0;
-
-    function renderGallery() {
-      const container = document.getElementById("gallery-container");
-      container.innerHTML = "";
-
-      const item = galleryItems[currentIndex];
-      const card = document.createElement("div");
-      card.className = "submitted-image-card";
-
-      card.innerHTML = `
-        <h2>${item.title}</h2>
-        <img src="${item.src}" alt="${item.title}">
-        <div class="submitted-image-info">
-          <p><strong>Beküldő:</strong> ${item.sender}</p>
-          <p><strong>Dátum:</strong> ${item.date}</p>
-          <p>${item.description}</p>
+    <main class="container">
+        <h1>Beküldött képek</h1>
+        <div class="gallery-container" id="gallery"></div>
+        <div class="nav-buttons">
+            <button onclick="handleVote('dislike')" id="dislikeBtn">👎</button>
+            <button onclick="handleVote('superlike')" id="superlikeBtn">⭐</button>
+            <button onclick="handleVote('like')" id="likeBtn">👍</button>
         </div>
-      `;
+    </main>
 
-      container.appendChild(card);
-      document.getElementById("page-info").textContent = `${currentIndex + 1} / ${galleryItems.length}`;
-      document.getElementById("prev-btn").disabled = currentIndex === 0;
-      document.getElementById("next-btn").disabled = currentIndex === galleryItems.length - 1;
-    }
+    <div id="notification-container"></div>
 
-    document.getElementById("prev-btn").addEventListener("click", () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderGallery();
-      }
-    });
-
-    document.getElementById("next-btn").addEventListener("click", () => {
-      if (currentIndex < galleryItems.length - 1) {
-        currentIndex++;
-        renderGallery();
-      }
-    });
-
-    renderGallery();
-  </script>
-</body>
 
 </html>
