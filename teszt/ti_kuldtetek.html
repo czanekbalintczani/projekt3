@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="hu">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +23,7 @@
         }
 
         .gallery-card {
-            width: 40%;
+            width: 30%;
             max-width: 600px;
             min-width: 300px;
             transition: transform 0.5s ease, filter 0.5s ease;
@@ -40,11 +39,13 @@
         .gallery-card.inactive {
             filter: grayscale(100%) brightness(80%);
             transform: scale(0.9);
+            opacity: 0.7;
         }
 
         .gallery-card.active {
             filter: none;
-            transform: scale(1);
+            transform: scale(1.05);
+            opacity: 1;
         }
 
         .gallery-card img {
@@ -63,37 +64,49 @@
             color: var(--text-color);
         }
 
-        .nav-buttons {
-            text-align: center;
-            margin: 2rem 0;
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
         }
 
-        .nav-buttons button {
-            margin: 0.5rem;
-            padding: 1rem 2rem;
+        .card-actions button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            background-color: var(--button-bg);
             color: white;
-            transition: background-color 0.3s, transform 0.2s;
         }
 
-        .nav-buttons button:hover {
-            background-color: var(--accent);
+        #likeBtn {
+            background-color: #4CAF50;
         }
 
-        .shake {
-            animation: shake 0.4s;
+        #dislikeBtn {
+            background-color: #f44336;
         }
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+        .nav-arrow {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        #prevBtn {
+            left: 1rem;
+        }
+
+        #nextBtn {
+            right: 1rem;
         }
 
         .notification {
@@ -132,6 +145,7 @@
 </head>
 
 <body>
+    <!-- Fejléced érintetlenül: -->
     <header>
         <div class="container">
             <div class="logo">
@@ -158,17 +172,98 @@
         </div>
     </header>
 
+    <!-- Galéria -->
     <main class="container">
         <h1>Beküldött képek</h1>
+        <button id="prevBtn" class="nav-arrow">&#8592;</button>
         <div class="gallery-container" id="gallery"></div>
-        <div class="nav-buttons">
-            <button onclick="handleVote('dislike')" id="dislikeBtn">👎</button>
-            <button onclick="handleVote('superlike')" id="superlikeBtn">⭐</button>
-            <button onclick="handleVote('like')" id="likeBtn">👍</button>
-        </div>
+        <button id="nextBtn" class="nav-arrow">&#8594;</button>
     </main>
 
     <div id="notification-container"></div>
 
+    <!-- JS -->
+    <script>
+        const images = [
+            { title: "Credobus Inovell", src: "/pic/tikuld/rwe.jpg", sender: "Szegedi István", date: "2023. október 8.", desc: "RWE-894 a vidéki pályaudvaron várva az indulást." },
+            { title: "Credobus Econell", src: "/pic/tikuld/czb.jpg", sender: "Czanek Bálint", date: "2021. szeptember 14.", desc: "Egy Credobus Econell 12 típusú busz váza érkezi Mosonmagyaróvárról a Kühne gyárból" },
+            { title: "Mercedes-Benz Conecto G", src: "/pic/tikuld/mb.jpg", sender: "Szegedi István", date: "2024 november 20.", desc: "RVY-642 csanaki vezérgép 28-as járatban LOC 2 parkolóba" },
+            { title: "Új logós Inovell", src: "/pic/tikuld/ino.jpg", sender: "Novák Richárd", date: "2025 február 14.", desc: "Megjelentek az első új arculatos buszok is!" },
+            { title: "Budapesti látkép", src: "/pic/tikuld/zsom.jfif", sender: "Fogta Béla", date: "2028 február 2.", desc: "Egy bárány a farkasok között" },
+            { title: "Mercedes-Benz Conecto NG", src: "/pic/tikuld/cson.jfif", sender: "Toth Titanilla", date: "2021 június 5.", desc: "Igen vagy nem, mindenki dontse el maganak" },
 
+            { title: "Mercedes-Benz Conecto G", src: "/pic/tikuld/mb2.jpg", sender: "Szegedi István", date: "2024 november 20.", desc: "RVY-642 csanaki vezérgép a LOC 2 parkolóba" }
+        ];
+
+        let centerIndex = 1;
+
+        const gallery = document.getElementById("gallery");
+
+        function renderGallery() {
+            gallery.innerHTML = "";
+            for (let i = centerIndex - 1; i <= centerIndex + 1; i++) {
+                const index = (i + images.length) % images.length;
+                const img = images[index];
+                const card = document.createElement("div");
+                card.className = "gallery-card";
+                card.classList.add(i === centerIndex ? "active" : "inactive");
+                card.innerHTML = `
+                    <div class="card-title">${img.title}</div>
+                    <img src="${img.src}" alt="${img.title}">
+                    <div class="card-details">
+                        <p><strong>Beküldte:</strong> ${img.sender}</p>
+                        <p><strong>Időpont:</strong> ${img.date}</p>
+                        <p><strong>Leírás:</strong> ${img.desc}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button id="dislikeBtn" onclick="handleVote('dislike')">👎</button>
+                        <button id="likeBtn" onclick="handleVote('like')">👍</button>
+                    </div>
+                `;
+                if (i !== centerIndex) {
+                    card.addEventListener("click", () => {
+                        centerIndex = index;
+                        renderGallery();
+                    });
+                }
+                gallery.appendChild(card);
+            }
+        }
+
+        function handleVote(type) {
+            const btn = document.getElementById(type + "Btn");
+            btn.classList.add("shake");
+            setTimeout(() => btn.classList.remove("shake"), 400);
+
+            if (type === "like") {
+                showNotification("Örülök hogy tetszett");
+            } else if (type === "dislike") {
+                showNotification("Sajnálom hogy nem tetszett", "#f44336");
+            }
+            centerIndex = (centerIndex + 1) % images.length;
+            setTimeout(renderGallery, 500);
+        }
+
+        function showNotification(message, color = "#4CAF50") {
+            const note = document.createElement("div");
+            note.className = "notification";
+            note.style.backgroundColor = color;
+            note.innerText = message;
+            document.getElementById("notification-container").appendChild(note);
+            setTimeout(() => note.remove(), 3000);
+        }
+
+        document.getElementById("prevBtn").onclick = () => {
+            centerIndex = (centerIndex - 1 + images.length) % images.length;
+            renderGallery();
+        };
+
+        document.getElementById("nextBtn").onclick = () => {
+            centerIndex = (centerIndex + 1) % images.length;
+            renderGallery();
+        };
+
+        renderGallery();
+    </script>
+</body>
 </html>

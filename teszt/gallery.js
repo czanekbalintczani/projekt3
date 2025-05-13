@@ -3,6 +3,10 @@ const images = [
     { title: "Credobus Econell", src: "/pic/tikuld/czb.jpg", sender: "Czanek Bálint", date: "2021. szeptember 14.", desc: "Egy Credobus Econell 12 típusú busz váza érkezi Mosonmagyaróvárról a Kühne gyárból" },
     { title: "Mercedes-Benz Conecto G", src: "/pic/tikuld/mb.jpg", sender: "Szegedi István", date: "2024 november 20.", desc: "RVY-642 csanaki vezérgép 28-as járatban LOC 2 parkolóba" },
     { title: "Új logós Inovell", src: "/pic/tikuld/ino.jpg", sender: "Novák Richárd", date: "2025 február 14.", desc: "Megjelentek az első új arculatos buszok is!" },
+    { title: "Budapesti látkép", src: "/pic/tikuld/zsom.jpg", sender: "Fogta Béla", date: "2028 február 2.", desc: "Egy bárány a farkasok között" },
+    { title: "Új logós Inovell", src: "/pic/tikuld/ino.jpg", sender: "Novák Richárd", date: "2025 február 14.", desc: "Megjelentek az első új arculatos buszok is!" },
+    { title: "Új logós Inovell", src: "/pic/tikuld/ino.jpg", sender: "Novák Richárd", date: "2025 február 14.", desc: "Megjelentek az első új arculatos buszok is!" },
+    { title: "Új logós Inovell", src: "/pic/tikuld/ino.jpg", sender: "Novák Richárd", date: "2025 február 14.", desc: "Megjelentek az első új arculatos buszok is!" },
     { title: "Mercedes-Benz Conecto G", src: "/pic/tikuld/mb2.jpg", sender: "Szegedi István", date: "2024 november 20.", desc: "RVY-642 csanaki vezérgép a LOC 2 parkolóba" }];
 
 
@@ -38,6 +42,11 @@ function renderGallery() {
                 <p><strong>Időpont:</strong> ${img.date}</p>
                 <p><strong>Leírás:</strong> ${img.desc}</p>
             </div>
+            ${i === centerIndex ? `
+            <div class="card-actions">
+                <button onclick="handleVote('dislike')" id="dislikeBtn">👎</button>
+                <button onclick="handleVote('like')" id="likeBtn">👍</button>
+            </div>` : ""}
         `;
         if (i !== centerIndex) {
             card.addEventListener("click", () => {
