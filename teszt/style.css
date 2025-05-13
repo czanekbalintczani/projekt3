@@ -2,8 +2,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #212529;
+    color: #f8f9fa;
     transition: background-color 0.3s ease, color 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ body {
 }
 
 .dark-theme header {
-    background-color: #343a40;
+    background-color: #ff9b00;
     color: #fff;
 }
 
@@ -241,7 +241,7 @@ h1 {
 }
 
 #admin-panel {
-    background-color: #f8f9fa;
+    background-color: #333;
     color: #333;
     padding: 20px;
     border-radius: 5px;
@@ -530,4 +530,182 @@ footer a:hover {
     background-color: #ff9b00;
     color: white;
     font-size: 1.1rem;
+}
+
+/* ... meglévő stílusok változatlanul maradnak ... */
+/* Utolsó frissítések teljesen balra */
+#updates {
+    text-align: left;
+    width: 60%;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.update {
+    margin-bottom: 30px;
+    padding-left: 0;
+}
+
+/* Tovább olvasom gomb */
+.tovgomb {
+    background-color: #ff9b00;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.tovgomb:hover {
+    background-color: #e07a00;
+    transform: scale(1.05);
+}
+
+/* Diavetítés jobb oldalt */
+#slideshow {
+    width: 35%;
+    height: 500px;
+    float: right;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Reszponzivitás */
+@media (max-width: 992px) {
+    #updates, #slideshow {
+        float: none;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    #slideshow {
+        height: 300px;
+        margin-top: 20px;
+    }
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+header {
+    background-color: #ff9b00;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+#main-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap; /* Responszívan rugalmas, ha szükséges */
+}
+
+#left-column,
+#center-column,
+#right-column {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.dark-theme #left-column,
+.dark-theme #center-column,
+.dark-theme #right-column {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+/* Kép méretezése és igazítása a jobb oldali sávban */
+#slideshow {
+    position: relative;
+    height: 100%; /* Vegye fel az egész sávot */
+    width: 100%;
+    max-height: 400px; /* Max magasság, hogy ne lógjon ki */
+    overflow: hidden; /* Ha a képek nagyobbak, nem fogják kilógni */
+    border-radius: 8px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* A képet a rendelkezésre álló területhez igazítja, hogy ne lógjon ki */
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+#popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+}
+#popup-overlay {
+    display: none; /* Alapértelmezetten rejtve */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7); /* Félig átlátszó háttér */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Magas priorítású, hogy a popup előtérben legyen */
+}
+
+#popup-box {
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.dark-theme #popup-box {
+    background: #212529;
+    color: #f8f9fa;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ff9b00;
 }
