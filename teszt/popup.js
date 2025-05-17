@@ -18,6 +18,10 @@ const articles = {
     2: {
         title: "2025. március 25.",
         content: "Év eleji állományváltozások Győr-Moson-Sopron megyében. Részletek az állomány oldalon."
+    },
+    3: {
+        title: "2025. május 12.",
+        content: "A Tour de Hongrie biztosítása érdekében több helyen forgalomkorlátozásokra és parkolási tilalmakra kell számítani: A célterületen tilos lesz megállni a Nagysándor József utcában már május 12-én hétfőn 18 órától. A teljes lezárás ezen az útszakaszon 13-án kedden 8 órától 21 óráig tart majd.Az Ipar utcán május 13-án 18 órától  nem lehet majd megállni. A teljes lezárás 14-én 8 órakor kezdődik. Emellett hétfőn lezárják a parkolókat is az ETO Park körül. Az egyiket már 9, a másikat 18 órától. A verseny útvonalán – ami az alábbi térképen a sárgával jelölt utcákat érinti -, május 14-én 8-16 óra között tilos a megállás. A teljes lezárás várhatóan 15:30-tól 16 óráig tart majd."
     }
 };
 
