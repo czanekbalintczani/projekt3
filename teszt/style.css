@@ -112,18 +112,18 @@ nav ul li a:hover {
 
 .user-actions button {
     padding: 10px 15px;
-    margin-left: 10px;
-    border: 1px solid black;
-    background-color: #ff9b00;
+    border: 1px solid #ff9b00;
+    background-color: black;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
     font-size: 1rem;
+    float: right;
 }
 
 .user-actions button:hover {
-    background-color: #ff9b00;
+    background-color: #343a40;
 }
 
 .user-actions #theme-toggle {
@@ -349,8 +349,8 @@ footer {
     background-color: #343a40;
     color: #f8f9fa;
     text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
+    padding: 17px 0;
+    margin-top: 15px;
     position: sticky;
     bottom: 0;
 }
@@ -574,6 +574,7 @@ footer a:hover {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #212529;
 }
 
 .slide {
@@ -614,7 +615,7 @@ body {
 header {
     background-color: #ff9b00;
     color: white;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -637,7 +638,7 @@ header {
 
 .dark-theme #left-column,
 .dark-theme #center-column,
-.dark-theme #right-column {
+.dark-theme #right-column{
     background-color: #343a40;
     color: #f8f9fa;
 }
@@ -708,4 +709,36 @@ header {
     font-size: 1.5rem;
     cursor: pointer;
     color: #ff9b00;
+}
+
+.icon-button {
+  background-color: white;    
+  border: none;                 
+  border-radius: 50%;         
+  width: 100%;              
+  height: 100%;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;    
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+i.fas.fa-sun {
+    margin-right: 4px;
+    margin-left: 3.5px;
+}
+
+i.fas.fa-moon {
+    margin-right: 4px;
+    margin-left: 3.5px;
+}
+
+nav ul li {
+    margin-left: 50px;
+}
+
+i.fas.fa-home {
+    margin-right: 0px;
 }
