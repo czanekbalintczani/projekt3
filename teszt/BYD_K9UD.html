@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="hu">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galéria</title>
+    <title>DYD_K9UD</title>
     <link rel="stylesheet" href="/style.css" />
     <script defer src="gallery.js"></script>
     <script defer src="theme.js"></script>
@@ -13,24 +12,28 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
-        .image-card2 span {
-            font-size: 5rem;
-        }
+        <style>
+            .galeria {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                padding: 16px;
+            }
 
-        .image-card2 {
-            height: 97%;
-            width: 97%;
-        }
+            .galeria img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
 
-        .image-card2 img {
-            height: 80%;
-            width: 80%;
-        }
-    </style>
+            .galeria img:hover {
+                transform: scale(1.05);
+            }
+        </style>
 
 </head>
-
 <body>
     <header>
         <div class="container">
@@ -61,24 +64,21 @@
         </div>
     </header>
 
-    <main class="container">
-        <div style="float: left;"><a href="/gallery.html" style="text-decoration: none; margin-right: 280px;"><img style="height: 30px; width: 30px; padding-left: 20px;" src="/pic/arrow.png" alt=""><p style="display: inline; font-size: 2.6rem;">Vissza</p></a><h1 style="display: inline;">Busz Galéria - Helyi</h1></div>
-        <div class="image-gallery">
-            <div class="image-card2">
-                <a href="/gallhelyigyor.html"><img src="/pic/folder.png" alt="Helyi"></a>
-                <span>Győr</span>
-            </div>
-            <div class="image-card2">
-                <a href="/UnderContruction.html"><img src="/pic/folder.png" alt="Helyközi"></a>
-                <span>Sopron</span>
-            </div>
-    </main>
+    <div style="float: left; margin-top: 50px;"><a href="/gallhelyigyor.html" style="text-decoration: none; margin-right: 530px;"><img style="height: 30px; width: 30px; padding-left: 45px;" src="/pic/arrow.png" alt=""><p style="display: inline; font-size: 2.6rem;">Vissza</p></a><h1 style="display: inline;">BYD K9UD Gépjármű</h1></div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 <a href="https://gyoribuszok.hu">gyoribuszok.hu</a> - Minden jog fenntartva.</p>
-        </div>
-    </footer>
+    <div class="galeria" style="margin-top: 30px;">
+        <img src="/pic/BYD/BYD1.jpg" alt="Kép 1">
+        <img src="/pic/BYD/BYD2.jpg" alt="Kép 2">
+        <img src="/pic/BYD/BYD3.jpg" alt="Kép 3">
+        <img src="/pic/BYD/BYD4.jpg" alt="Kép 4">
+    </div>
+    <div class="galeria" style="margin-top: -17px;">
+        <img src="/pic/BYD/BYD5.jpg" alt="Kép 1">
+        <img src="/pic/BYD/BYD6.jpg" alt="Kép 2">
+        <img src="/pic/BYD/BYD7.jpg" alt="Kép 3">
+        <img src="/pic/BYD/BYD8.jpg" alt="Kép 4">
+    </div>
+
+    
 </body>
-
 </html>
