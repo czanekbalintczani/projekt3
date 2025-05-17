@@ -90,16 +90,19 @@
 
         .nav-arrow {
             font-size: 2rem;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.913);
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 50%;
+            border-radius: 20%;
             cursor: pointer;
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             z-index: 2;
+            height: 60px;
+            width: 80px;
         }
+
 
         #prevBtn {
             left: 1rem;
@@ -178,9 +181,9 @@
     <!-- Galéria -->
     <main class="container">
         <h1>Beküldött képek</h1>
-        <button id="prevBtn" class="nav-arrow">&#8592;</button>
+        <button id="prevBtn" class="nav-arrow"><img src="/pic/arrow-png-download másolata.png" alt="" style=" height: 40px; width: 40px; padding-top: 3px;"></button>
         <div class="gallery-container" id="gallery"></div>
-        <button id="nextBtn" class="nav-arrow">&#8594;</button>
+        <button id="nextBtn" class="nav-arrow"><img src="/pic/arrow-png-download.png" alt="" style=" height: 40px; width: 40px; padding-top: 3px;"></button>
     </main>
 
     <div id="notification-container"></div>
