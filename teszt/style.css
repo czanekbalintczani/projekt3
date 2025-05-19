@@ -350,7 +350,6 @@ footer {
     color: #f8f9fa;
     text-align: center;
     padding: 17px 0;
-    margin-top: 15px;
     position: sticky;
     bottom: 0;
 }
@@ -569,7 +568,7 @@ footer a:hover {
 /* Diavetítés jobb oldalt */
 #slideshow {
     width: 35%;
-    height: 500px;
+    height: max-content;
     float: right;
     margin: 20px 0;
     position: relative;
@@ -626,6 +625,15 @@ header {
     gap: 20px;
     padding: 20px;
     flex-wrap: wrap; /* Responszívan rugalmas, ha szükséges */
+    background-color: rgb(200, 199, 199);
+}
+
+.dark-theme #main-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap; /* Responszívan rugalmas, ha szükséges */
+    background-color: #212529;
 }
 
 #left-column,
@@ -646,13 +654,33 @@ header {
 }
 
 /* Kép méretezése és igazítása a jobb oldali sávban */
+
+
+.dark-theme #slideshow {
+    position: relative;
+    height: 100%; /* Vegye fel az egész sávot */
+    width: 100%;
+    max-height: 800px; /* Max magasság, hogy ne lógjon ki */
+    overflow: hidden; /* Ha a képek nagyobbak, nem fogják kilógni */
+    border-radius: 8px;
+    background-color: #212529;
+    margin: 0;
+}
+
 #slideshow {
     position: relative;
     height: 100%; /* Vegye fel az egész sávot */
     width: 100%;
-    max-height: 400px; /* Max magasság, hogy ne lógjon ki */
+    max-height: 800px; /* Max magasság, hogy ne lógjon ki */
     overflow: hidden; /* Ha a képek nagyobbak, nem fogják kilógni */
     border-radius: 8px;
+    background-color: rgb(235, 234, 234);
+    margin: 0;
+    
+}
+
+#slideshow img{
+    border-top: 3px solid #ff9b00;
 }
 
 .slide {
