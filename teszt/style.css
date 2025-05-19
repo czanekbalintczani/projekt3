@@ -674,7 +674,7 @@ header {
     max-height: 800px; /* Max magasság, hogy ne lógjon ki */
     overflow: hidden; /* Ha a képek nagyobbak, nem fogják kilógni */
     border-radius: 8px;
-    background-color: rgb(235, 234, 234);
+    background-color: rgb(219, 219, 219);
     margin: 0;
     
 }
